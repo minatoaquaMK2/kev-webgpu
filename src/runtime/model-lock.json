@@ -1,0 +1,173 @@
+{
+  "model": "jaredpalmer/kev-0.8b",
+  "checkpoint": "9a45d25eb2ab761841196625383fa1dff0e56c1e",
+  "bundleRepository": "ai-ecoverse/kev.js",
+  "bundleCommit": "6ae610faac5669a69d4c633d44fe1d7fa56dbb58",
+  "bundleRevision": "a4c2a04e456b9f7b",
+  "baseUrl": "https://huggingface.co/ai-ecoverse/kev.js/resolve/6ae610faac5669a69d4c633d44fe1d7fa56dbb58/kev-0.8b",
+  "variant": "q8",
+  "vision": false,
+  "runtimePackage": "@ai-ecoverse/kev.js",
+  "runtimeVersion": "1.0.0",
+  "runtimeCommit": "ca072e49e65b716af478db8f464e1fac8a0f4ad5",
+  "ortVersion": "1.30.0",
+  "tokenizersVersion": "0.2.0",
+  "ioDtype": "float16",
+  "temperature": 2.3510958125672174,
+  "maxPositions": 73728,
+  "totalBytes": 826680926,
+  "files": {
+    "manifest.json": {
+      "bytes": 79916,
+      "sha256": "5ec4abcb0c567adb516d5ca2529b1a518de62f3c1ff8de4eda4f66e439f0526d"
+    },
+    "r-9a45d25/head.safetensors": {
+      "bytes": 2099504,
+      "sha256": "ab7c75921e79ec27ca97d8bf7b928e277dac843a6f4a528f9e8b7ab0fe7cd47d"
+    },
+    "r-9a45d25/tokenizer.json": {
+      "bytes": 19989325,
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523"
+    },
+    "r-9a45d25/tokenizer_config.json": {
+      "bytes": 1128,
+      "sha256": "8671bed7c852ce9e661be94f179a7b4ffd091c2a65aea0363e5501c20318ee45"
+    },
+    "r-9a45d25/q8/model.onnx": {
+      "bytes": 385357,
+      "sha256": "bb15a69610c16cc572ae63cbe34e6d9f15c3611b0006ab448e61b7d9c6e18080"
+    },
+    "r-9a45d25/q8/model.onnx.data": {
+      "bytes": 30173184,
+      "sha256": "eebf196f91aa9392ba473b1aebc0b949838c09ff647337bbc924c90bfa6b098f"
+    },
+    "r-9a45d25/q8/model.onnx.data_1": {
+      "bytes": 28966912,
+      "sha256": "434d968f7ad0cf8d90b95e3ab6ae79690ec2e26b20b3f74acf0ef474fbbc2a2e"
+    },
+    "r-9a45d25/q8/model.onnx.data_10": {
+      "bytes": 26738688,
+      "sha256": "092d8ef9b27f9b94fc207cc5440788a610af5eca8f75022d69fd91ec7585786f"
+    },
+    "r-9a45d25/q8/model.onnx.data_11": {
+      "bytes": 30638080,
+      "sha256": "48dfa9b89d952676392d46cd1ad473a0bf02ddb1027d2d67df5a8a71f7479134"
+    },
+    "r-9a45d25/q8/model.onnx.data_12": {
+      "bytes": 30638080,
+      "sha256": "a593c696255edca3d7940fad577f1ead5e98719a1b49df1e2f369035b13b11f5"
+    },
+    "r-9a45d25/q8/model.onnx.data_13": {
+      "bytes": 26738688,
+      "sha256": "22feb06a375890348aaa4498f4f23f1bdcfd018df94d82136b8dfcebbffcac23"
+    },
+    "r-9a45d25/q8/model.onnx.data_14": {
+      "bytes": 30638080,
+      "sha256": "50563b4deb6f0afb3303f40a30bfe20e0459bbea3c7cbdeb212bd5e9cb8ec338"
+    },
+    "r-9a45d25/q8/model.onnx.data_15": {
+      "bytes": 30638080,
+      "sha256": "6682d54011c46d5627d91a257c23c2349b04f727289fd66cebcbed450de653d4"
+    },
+    "r-9a45d25/q8/model.onnx.data_16": {
+      "bytes": 26738688,
+      "sha256": "c83c3984ea21b85522b74ac2a406cc7a53255b2cf9fa6e6e355c059876b10dcc"
+    },
+    "r-9a45d25/q8/model.onnx.data_17": {
+      "bytes": 30638080,
+      "sha256": "6df11ebda401e13ef2b1d866dea09274ac64a959d91e8b6768b7f367f3c95b0b"
+    },
+    "r-9a45d25/q8/model.onnx.data_18": {
+      "bytes": 11698176,
+      "sha256": "13936024b733dceacfebd0787869718b2d9880677a97daf952b7e0a13ba59c20"
+    },
+    "r-9a45d25/q8/model.onnx.data_19": {
+      "bytes": 31784960,
+      "sha256": "064d87808a99570a79a6158ded223fd333827c1811a472af6f2022aff7b675fb"
+    },
+    "r-9a45d25/q8/model.onnx.data_2": {
+      "bytes": 30638080,
+      "sha256": "1209913e21286084dafa297552ccd5bc46f2876fe2bf13ffa338a4a5e6b914c8"
+    },
+    "r-9a45d25/q8/model.onnx.data_20": {
+      "bytes": 31784960,
+      "sha256": "b368dafb253f0be6ff7db13bcfaa7881a65c2257cb5419e1df1099640c06bc69"
+    },
+    "r-9a45d25/q8/model.onnx.data_21": {
+      "bytes": 31784960,
+      "sha256": "66c4edd582ed9c1a404226038cb4fea31589a0d014b9456f67fde6dd23d88085"
+    },
+    "r-9a45d25/q8/model.onnx.data_22": {
+      "bytes": 31784960,
+      "sha256": "8ad9b4dda2cf75061231dced0a844d4db626686288ad7a53f3e74fe37a4404f9"
+    },
+    "r-9a45d25/q8/model.onnx.data_23": {
+      "bytes": 31784960,
+      "sha256": "1275e69b77c3e5a5f04750b8da34f0be0f5e373ece11aaf1ab8a4ed679f5b751"
+    },
+    "r-9a45d25/q8/model.onnx.data_24": {
+      "bytes": 31784960,
+      "sha256": "b67e96cd0d7ff59e047440daaae1ba7e1d1402a9ce69cec221fd2700327f205b"
+    },
+    "r-9a45d25/q8/model.onnx.data_25": {
+      "bytes": 31784960,
+      "sha256": "451cc0541e381dfcd697df695360e73c23541186e19d257e91a2d69bdb3552b7"
+    },
+    "r-9a45d25/q8/model.onnx.data_26": {
+      "bytes": 31784960,
+      "sha256": "1734cafd3bee24f56b53f26fbbfbdf25d3c28d98141cf430b7e8f84188711c79"
+    },
+    "r-9a45d25/q8/model.onnx.data_27": {
+      "bytes": 496640,
+      "sha256": "a94d3c38772181899fe1e8cfeacf473fa92aaa79b33194c8d3bf5496f351b36d"
+    },
+    "r-9a45d25/q8/model.onnx.data_3": {
+      "bytes": 30638080,
+      "sha256": "f8d00aa69562110b57d57531dc34bff74d5094419f3ac8b13eb8bb806e4a75ee"
+    },
+    "r-9a45d25/q8/model.onnx.data_4": {
+      "bytes": 30638080,
+      "sha256": "14a2e80a92750403aee33a6b306c762df5dbcc150093d79e016dc916937c3ea3"
+    },
+    "r-9a45d25/q8/model.onnx.data_5": {
+      "bytes": 31752192,
+      "sha256": "3a1b7144390d8d95625b2c9c4b958c1d4e0803b805ee41f734b1349f2e5f7790"
+    },
+    "r-9a45d25/q8/model.onnx.data_6": {
+      "bytes": 29523968,
+      "sha256": "8439b5940f278be7682c89e6d9270427da108999b2bac275fdd1d177f3ca3adf"
+    },
+    "r-9a45d25/q8/model.onnx.data_7": {
+      "bytes": 30638080,
+      "sha256": "28bb0c35074f6a9c1a9ecd42302781679e4d217893f0ee4805beb8782aa50ce1"
+    },
+    "r-9a45d25/q8/model.onnx.data_8": {
+      "bytes": 30638080,
+      "sha256": "964bd6715edb9378f1f363824bbc8d737ca516004987d316ad0e05cd6709fb70"
+    },
+    "r-9a45d25/q8/model.onnx.data_9": {
+      "bytes": 30638080,
+      "sha256": "934a6de2e1453aac2430319ec5fcd4c1667c1b8fd7cc66ca21800a4db2e1d6df"
+    }
+  },
+  "verifiedAt": "2026-10-10",
+  "verification": "Manifest bytes hashed locally; model file digests from immutable HF Git LFS metadata; runtime byte verification required before session creation.",
+  "runtimeIntegrity": "sha512-HdE51KJ/CkSi6wWN4dDbnRF+8uKlUDNO+Qnt2uEQGIX4kpVt5Ja1N6m1UFQrG3uRuycbZGEEih/RBZh6N0dcIQ==",
+  "graphInspection": {
+    "graphSha256": "bb15a69610c16cc572ae63cbe34e6d9f15c3611b0006ab448e61b7d9c6e18080",
+    "initializerDtypes": {
+      "float16": 302,
+      "float32": 38,
+      "uint8": 150,
+      "int8": 8,
+      "int64": 1
+    },
+    "keyOperators": {
+      "MatMulNBits": 150,
+      "MatMul": 36,
+      "LinearAttention": 18,
+      "GroupQueryAttention": 6
+    },
+    "weightsDownloaded": false
+  }
+}

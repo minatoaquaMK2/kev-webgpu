@@ -1,0 +1,481 @@
+{
+  "status": "passed",
+  "measuredAt": "2026-10-10T14:41:05.359Z",
+  "bundleCommit": "6ae610faac5669a69d4c633d44fe1d7fa56dbb58",
+  "checkpoint": "9a45d25eb2ab761841196625383fa1dff0e56c1e",
+  "runtimeVersion": "1.0.0",
+  "runtimeCommit": "ca072e49e65b716af478db8f464e1fac8a0f4ad5",
+  "ortVersion": "1.30.0",
+  "fullWeightShardsDownloaded": false,
+  "inferenceRun": false,
+  "assets": [
+    {
+      "path": "manifest.json",
+      "source": "https://huggingface.co/ai-ecoverse/kev.js/resolve/6ae610faac5669a69d4c633d44fe1d7fa56dbb58/kev-0.8b/manifest.json",
+      "bytes": 79916,
+      "sha256": "5ec4abcb0c567adb516d5ca2529b1a518de62f3c1ff8de4eda4f66e439f0526d",
+      "status": "verified"
+    },
+    {
+      "path": "r-9a45d25/tokenizer.json",
+      "source": "https://huggingface.co/ai-ecoverse/kev.js/resolve/6ae610faac5669a69d4c633d44fe1d7fa56dbb58/kev-0.8b/r-9a45d25/tokenizer.json",
+      "bytes": 19989325,
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+      "status": "verified"
+    },
+    {
+      "path": "r-9a45d25/tokenizer_config.json",
+      "source": "https://huggingface.co/ai-ecoverse/kev.js/resolve/6ae610faac5669a69d4c633d44fe1d7fa56dbb58/kev-0.8b/r-9a45d25/tokenizer_config.json",
+      "bytes": 1128,
+      "sha256": "8671bed7c852ce9e661be94f179a7b4ffd091c2a65aea0363e5501c20318ee45",
+      "status": "verified"
+    },
+    {
+      "path": "r-9a45d25/q8/model.onnx",
+      "source": "https://huggingface.co/ai-ecoverse/kev.js/resolve/6ae610faac5669a69d4c633d44fe1d7fa56dbb58/kev-0.8b/r-9a45d25/q8/model.onnx",
+      "bytes": 385357,
+      "sha256": "bb15a69610c16cc572ae63cbe34e6d9f15c3611b0006ab448e61b7d9c6e18080",
+      "status": "verified"
+    }
+  ],
+  "graph": {
+    "initializerDtypes": {
+      "float16": 302,
+      "float32": 38,
+      "int64": 1,
+      "int8": 8,
+      "uint8": 150
+    },
+    "operators": {
+      "Cast": 34,
+      "CausalConvWithState": 18,
+      "Concat": 1,
+      "Constant": 11,
+      "GatedRMSNorm": 18,
+      "Gather": 10,
+      "GroupQueryAttention": 6,
+      "LinearAttention": 18,
+      "LinearAttentionGate": 18,
+      "LpNormalization": 36,
+      "MRotaryEmbedding": 12,
+      "MatMul": 36,
+      "MatMulNBits": 150,
+      "Mul": 73,
+      "ReduceSum": 1,
+      "Reshape": 114,
+      "Shape": 1,
+      "Sigmoid": 30,
+      "SimplifiedLayerNormalization": 13,
+      "SkipSimplifiedLayerNormalization": 48,
+      "Split": 24,
+      "Sub": 1,
+      "Transpose": 36,
+      "Unsqueeze": 1
+    },
+    "inputs": [
+      {
+        "name": "input_ids",
+        "elementType": "int64"
+      },
+      {
+        "name": "attention_mask",
+        "elementType": "int64"
+      },
+      {
+        "name": "position_ids",
+        "elementType": "int64"
+      },
+      {
+        "name": "past_key_values.3.key",
+        "elementType": "float16"
+      },
+      {
+        "name": "past_key_values.7.key",
+        "elementType": "float16"
+      },
+      {
+        "name": "past_key_values.11.key",
+        "elementType": "float16"
+      },
+      {
+        "name": "past_key_values.15.key",
+        "elementType": "float16"
+      },
+      {
+        "name": "past_key_values.19.key",
+        "elementType": "float16"
+      },
+      {
+        "name": "past_key_values.23.key",
+        "elementType": "float16"
+      },
+      {
+        "name": "past_key_values.3.value",
+        "elementType": "float16"
+      },
+      {
+        "name": "past_key_values.7.value",
+        "elementType": "float16"
+      },
+      {
+        "name": "past_key_values.11.value",
+        "elementType": "float16"
+      },
+      {
+        "name": "past_key_values.15.value",
+        "elementType": "float16"
+      },
+      {
+        "name": "past_key_values.19.value",
+        "elementType": "float16"
+      },
+      {
+        "name": "past_key_values.23.value",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.0.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.1.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.2.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.4.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.5.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.6.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.8.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.9.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.10.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.12.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.13.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.14.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.16.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.17.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.18.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.20.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.21.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.22.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.0.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.1.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.2.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.4.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.5.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.6.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.8.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.9.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.10.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.12.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.13.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.14.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.16.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.17.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.18.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.20.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.21.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "past.22.recurrent",
+        "elementType": "float16"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "hidden_states",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.3.key",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.7.key",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.11.key",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.15.key",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.19.key",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.23.key",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.3.value",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.7.value",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.11.value",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.15.value",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.19.value",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.23.value",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.0.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.1.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.2.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.4.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.5.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.6.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.8.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.9.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.10.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.12.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.13.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.14.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.16.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.17.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.18.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.20.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.21.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.22.conv",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.0.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.1.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.2.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.4.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.5.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.6.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.8.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.9.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.10.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.12.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.13.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.14.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.16.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.17.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.18.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.20.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.21.recurrent",
+        "elementType": "float16"
+      },
+      {
+        "name": "present.22.recurrent",
+        "elementType": "float16"
+      }
+    ],
+    "largestInitializerElements": 31784960
+  }
+}

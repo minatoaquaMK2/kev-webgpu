@@ -1,0 +1,10 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+*.zip
+results/*-final.log
+results/unit-tests-final.json
+BUILD_INFO.json
+
+*.bundle

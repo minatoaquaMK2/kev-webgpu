@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kev real-model validation</title>
+<style>body{font:16px system-ui;margin:2rem auto;max-width:1080px;padding:0 1rem;color:#203047;background:#f5f7fb}h1{font-size:1.7rem}label{display:block;margin:.6rem 0}input{padding:.4rem;min-width:24rem;max-width:90%}button{padding:.7rem 1rem;margin:.3rem}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#fff;padding:1rem;border:1px solid #ccd5e0;max-height:65vh;overflow:auto}.warning{padding:1rem;background:#fff4d4;border-left:4px solid #b98413}</style></head>
+<body><h1>Kev-0.8B text q8: real-model validation</h1>
+<p class="warning">Manual development harness. Loading downloads the pinned 826,680,926-byte model bundle if uncached. Running invokes real inference sequentially for 34 synthetic inputs, optional 30+ parity checks, 3 warm-ups and 30 measured runs. No cloud inference and no fabricated probabilities. Run on a suitable physical GPU; do not use software adapters or insecure flags.</p>
+<p>Ordinary CI does not run this page. Domain expectations are separate test labels. This is a synthetic development set, not a production accuracy benchmark.</p>
+<label>OS and version <input id="os" placeholder="Record exact tested OS/version"></label>
+<label>Physical device <input id="hardware" placeholder="Record manufacturer, device, GPU and RAM"></label>
+<label>Application commit <input id="commit" placeholder="Exact git commit used for this run"></label>
+<label>Optional trusted reference fixture JSON <input id="reference" type="file" accept="application/json"></label>
+<div><button id="probe" data-work>Probe GPU</button><button id="load" data-work>Load pinned q8</button><button id="run" data-work>Run real validation</button><button id="cancel">Cancel</button><button id="unload" data-work>Unload</button><button id="download">Download raw JSON</button></div>
+<p id="status" role="status">Not run. No model has been loaded.</p><pre id="output">No measurements yet</pre>
+<script type="module" src="./browser-harness.ts"></script></body></html>

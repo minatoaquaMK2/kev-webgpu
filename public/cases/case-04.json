@@ -1,0 +1,258 @@
+{
+  "schemaVersion": "1.0",
+  "synthetic": true,
+  "incident": {
+    "id": "incident-04",
+    "symptom": "ESXi-04 reports datastore access failures on one storage path; another path remains healthy.",
+    "startedAt": "2026-10-01T09:00:00Z"
+  },
+  "scope": {
+    "platform": "Dell Private Cloud",
+    "hypervisor": "VMware vSphere",
+    "storage": "PowerStore",
+    "protocol": "iSCSI",
+    "datastoreType": "VMFS",
+    "dpcVersion": "not_specified",
+    "powerstoreOSVersion": "not_specified"
+  },
+  "topology": {
+    "entities": [
+      {
+        "id": "workflow-01",
+        "kind": "workflow"
+      },
+      {
+        "id": "vcenter-01",
+        "kind": "vcenter"
+      },
+      {
+        "id": "esxi-01",
+        "kind": "host"
+      },
+      {
+        "id": "esxi-02",
+        "kind": "host"
+      },
+      {
+        "id": "esxi-03",
+        "kind": "host"
+      },
+      {
+        "id": "esxi-04",
+        "kind": "host"
+      },
+      {
+        "id": "cluster-01",
+        "kind": "host_group"
+      },
+      {
+        "id": "iqn.demo:esxi-04",
+        "kind": "initiator"
+      },
+      {
+        "id": "iqn.demo:esxi-02",
+        "kind": "initiator"
+      },
+      {
+        "id": "esxi-04:vmk1",
+        "kind": "vmkernel"
+      },
+      {
+        "id": "switch-a:port-04",
+        "kind": "switch_port"
+      },
+      {
+        "id": "switch-b:port-04",
+        "kind": "switch_port"
+      },
+      {
+        "id": "powerstore-01:port-a",
+        "kind": "storage_port"
+      },
+      {
+        "id": "powerstore-01",
+        "kind": "appliance"
+      },
+      {
+        "id": "volume-01",
+        "kind": "volume"
+      },
+      {
+        "id": "datastore-01",
+        "kind": "datastore"
+      }
+    ],
+    "relations": [
+      {
+        "from": "workflow-01",
+        "to": "vcenter-01",
+        "kind": "coordinates"
+      },
+      {
+        "from": "esxi-04",
+        "to": "iqn.demo:esxi-04",
+        "kind": "initiator"
+      },
+      {
+        "from": "esxi-02",
+        "to": "iqn.demo:esxi-02",
+        "kind": "initiator"
+      },
+      {
+        "from": "esxi-04",
+        "to": "cluster-01",
+        "kind": "member_of"
+      },
+      {
+        "from": "esxi-02",
+        "to": "cluster-01",
+        "kind": "member_of"
+      },
+      {
+        "from": "esxi-04",
+        "to": "esxi-04:vmk1",
+        "kind": "uses",
+        "pathId": "storage-a"
+      },
+      {
+        "from": "esxi-04:vmk1",
+        "to": "switch-a:port-04",
+        "kind": "connected",
+        "pathId": "storage-a"
+      },
+      {
+        "from": "switch-a:port-04",
+        "to": "powerstore-01:port-a",
+        "kind": "connected",
+        "pathId": "storage-a"
+      },
+      {
+        "from": "powerstore-01:port-a",
+        "to": "powerstore-01",
+        "kind": "on",
+        "pathId": "storage-a"
+      },
+      {
+        "from": "esxi-04",
+        "to": "switch-b:port-04",
+        "kind": "connected",
+        "pathId": "storage-b"
+      },
+      {
+        "from": "switch-b:port-04",
+        "to": "powerstore-01",
+        "kind": "connected",
+        "pathId": "storage-b"
+      },
+      {
+        "from": "powerstore-01",
+        "to": "volume-01",
+        "kind": "hosts"
+      },
+      {
+        "from": "volume-01",
+        "to": "datastore-01",
+        "kind": "backs"
+      }
+    ]
+  },
+  "coverage": [
+    {
+      "source": "powerstore",
+      "entityId": "powerstore-01",
+      "from": "2026-10-01T09:00:00Z",
+      "to": "2026-10-01T09:05:00Z",
+      "completeness": "complete"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-01",
+      "source": "esxi",
+      "entityId": "esxi-04",
+      "observedAt": "2026-10-01T09:00:00Z",
+      "temporalState": "current",
+      "kind": "datastore_access",
+      "facts": {
+        "hostId": "esxi-04",
+        "volumeId": "volume-01",
+        "datastoreId": "datastore-01",
+        "operation": "read_write",
+        "result": "timeout"
+      }
+    },
+    {
+      "id": "ev-02",
+      "source": "network",
+      "entityId": "switch-a:port-04",
+      "observedAt": "2026-10-01T09:01:00Z",
+      "temporalState": "current",
+      "kind": "link_state",
+      "facts": {
+        "interfaceId": "switch-a:port-04",
+        "hostId": "esxi-04",
+        "applianceId": "powerstore-01",
+        "state": "down"
+      },
+      "pathId": "storage-a"
+    },
+    {
+      "id": "ev-03",
+      "source": "esxi",
+      "entityId": "esxi-04:vmk1",
+      "observedAt": "2026-10-01T09:01:00Z",
+      "temporalState": "current",
+      "kind": "iscsi_path_state",
+      "facts": {
+        "hostId": "esxi-04",
+        "applianceId": "powerstore-01",
+        "vmk": "vmk1",
+        "target": "192.0.2.10",
+        "sessionState": "lost",
+        "pathState": "dead"
+      },
+      "pathId": "storage-a"
+    },
+    {
+      "id": "ev-04",
+      "source": "network",
+      "entityId": "switch-b:port-04",
+      "observedAt": "2026-10-01T09:01:00Z",
+      "temporalState": "current",
+      "kind": "link_state",
+      "facts": {
+        "interfaceId": "switch-b:port-04",
+        "hostId": "esxi-04",
+        "applianceId": "powerstore-01",
+        "state": "up"
+      },
+      "pathId": "storage-b"
+    },
+    {
+      "id": "ev-05",
+      "source": "powerstore",
+      "entityId": "powerstore-01",
+      "observedAt": "2026-10-01T09:02:00Z",
+      "temporalState": "current",
+      "kind": "volume_mapping",
+      "facts": {
+        "hostId": "esxi-04",
+        "hostGroupIds": [
+          "cluster-01"
+        ],
+        "initiator": "iqn.demo:esxi-04",
+        "volumeId": "volume-01",
+        "effectiveMappingExists": true,
+        "inventoryComplete": true,
+        "directMappingExists": true,
+        "groupMappings": [
+          {
+            "hostGroupId": "cluster-01",
+            "volumeId": "volume-01",
+            "mapped": false
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "kev-dpc-rca-demo",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "vitest run",
+    "test:browser": "playwright test",
+    "check": "npm test && npm run build"
+  },
+  "dependencies": {
+    "@ai-ecoverse/kev.js": "1.0.0",
+    "@huggingface/tokenizers": "0.2.0",
+    "onnxruntime-web": "1.30.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "@types/node": "22.15.3",
+    "jsdom": "26.1.0",
+    "typescript": "5.8.3",
+    "vite": "6.4.4",
+    "vitest": "5.0.3"
+  }
+}

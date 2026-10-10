@@ -1,0 +1,37 @@
+name: Static checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Build under a repository subpath
+        run: npm run build
+        env:
+          PAGES_BASE: /kev-rca-demo/
+      - name: Ensure weights are not shipped in Pages
+        shell: bash
+        run: |
+          if find dist -type f \( -name '*.onnx' -o -name '*.onnx.data*' -o -name '*.safetensors' \) | grep -q .; then
+            echo 'Model weights must stay outside the Pages artifact'; exit 1
+          fi
+          test "$(du -sb dist | cut -f1)" -lt 1000000000
+      - uses: actions/upload-artifact@v4
+        with:
+          name: static-build
+          path: dist
+          retention-days: 7
+# This is deliberately a static/unit job. It neither downloads model weights nor
+# claims GPU, numerical parity, real-model domain accuracy, or Pages-origin CORS.

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "case-01",
+    "title": "扩容后的存储访问",
+    "file": "case-01.json",
+    "stages": [
+      {
+        "id": "A",
+        "label": "A · 症状"
+      },
+      {
+        "id": "B",
+        "label": "B · 路径观测"
+      },
+      {
+        "id": "C",
+        "label": "C · 配置观测"
+      }
+    ]
+  },
+  {
+    "id": "case-02",
+    "title": "新主机卷发现",
+    "file": "case-02.json"
+  },
+  {
+    "id": "case-03",
+    "title": "数据存储读写差异",
+    "file": "case-03.json"
+  },
+  {
+    "id": "case-04",
+    "title": "主机存储路径观测",
+    "file": "case-04.json"
+  },
+  {
+    "id": "case-05",
+    "title": "历史事件复核",
+    "file": "case-05.json"
+  },
+  {
+    "id": "case-06",
+    "title": "工作流超时记录",
+    "file": "case-06.json"
+  },
+  {
+    "id": "case-07",
+    "title": "扩容记录与附加日志",
+    "file": "case-07.json"
+  },
+  {
+    "id": "case-08",
+    "title": "并发主机访问记录",
+    "file": "case-08.json"
+  }
+]

@@ -1,0 +1,246 @@
+{
+  "status": "passed",
+  "measuredAt": "2026-10-10T14:41:06.789Z",
+  "tokenizerSha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+  "runtimeVersion": "1.0.0",
+  "runtimeCommit": "ca072e49e65b716af478db8f464e1fac8a0f4ad5",
+  "measurement": "Actual Kev encode(toRecord(productionRequest)), including special tokens. No inference; no truncation. Both production question types tested.",
+  "budgets": {
+    "state": 1024,
+    "statePlusBranch": 1536
+  },
+  "fixtureDigests": {
+    "case-01": "18079bdab5bbf262bf232571c67c7d1101bf2b612e097f7cac1ba7e1856a7654",
+    "case-02": "23de6851fade95202fff7da693201018beed8890ab7b2ad7a343ec48b04e74f1",
+    "case-03": "59af7f286ff61c7f56178dd566de22be6255e2baa7b92aaee68436c2252027d6",
+    "case-04": "daab8011068316692cc6144664a0341b10d23d00f588c6eed0a200b40cbe9133",
+    "case-05": "7d46ad187bf3b2e83cc56cba9f978866f04041824ee261377a84367aebec33bc",
+    "case-06": "b251f2522474dada6a07a29fe85533e63c3919cf7ae5680ff3dca68c80a2a85d",
+    "case-07": "b784f05d97c56aa9cbcd1d3e5d564c9b20c8b8da5dcd8114fe16b036916f923c",
+    "case-08": "b00f00f070911eeb3c0bdd42bc8d2fa4b6720494aaba745d943e935637b0902c"
+  },
+  "inputCount": 10,
+  "questionCount": 20,
+  "rows": [
+    {
+      "id": "case-01-A",
+      "baselineId": "case-01-A",
+      "transformation": "base-stage",
+      "question": "probable_cause",
+      "stateTokens": 300,
+      "statePlusBranchTokens": 538,
+      "totalTokens": 538,
+      "stateSha256": "5a5ce3b4afeec06f07805919fadfd670048cf1bb95d50e54683d5efae18b594b",
+      "pass": true
+    },
+    {
+      "id": "case-01-A",
+      "baselineId": "case-01-A",
+      "transformation": "base-stage",
+      "question": "next_check",
+      "stateTokens": 300,
+      "statePlusBranchTokens": 479,
+      "totalTokens": 479,
+      "stateSha256": "5a5ce3b4afeec06f07805919fadfd670048cf1bb95d50e54683d5efae18b594b",
+      "pass": true
+    },
+    {
+      "id": "case-01-B",
+      "baselineId": "case-01-B",
+      "transformation": "base-stage",
+      "question": "probable_cause",
+      "stateTokens": 642,
+      "statePlusBranchTokens": 880,
+      "totalTokens": 880,
+      "stateSha256": "640bde457d209a0adba7e76ad8718746783e7ba829ad39f9b9f099cc0251e448",
+      "pass": true
+    },
+    {
+      "id": "case-01-B",
+      "baselineId": "case-01-B",
+      "transformation": "base-stage",
+      "question": "next_check",
+      "stateTokens": 642,
+      "statePlusBranchTokens": 821,
+      "totalTokens": 821,
+      "stateSha256": "640bde457d209a0adba7e76ad8718746783e7ba829ad39f9b9f099cc0251e448",
+      "pass": true
+    },
+    {
+      "id": "case-01-C",
+      "baselineId": "case-01-C",
+      "transformation": "base-stage",
+      "question": "probable_cause",
+      "stateTokens": 824,
+      "statePlusBranchTokens": 1062,
+      "totalTokens": 1062,
+      "stateSha256": "464ee178d2ee254f058c7b7dfaf54f4a646609d78f7d3040fe358ea840d9cf53",
+      "pass": true
+    },
+    {
+      "id": "case-01-C",
+      "baselineId": "case-01-C",
+      "transformation": "base-stage",
+      "question": "next_check",
+      "stateTokens": 824,
+      "statePlusBranchTokens": 1003,
+      "totalTokens": 1003,
+      "stateSha256": "464ee178d2ee254f058c7b7dfaf54f4a646609d78f7d3040fe358ea840d9cf53",
+      "pass": true
+    },
+    {
+      "id": "case-02",
+      "baselineId": "case-02",
+      "transformation": "base-case",
+      "question": "probable_cause",
+      "stateTokens": 652,
+      "statePlusBranchTokens": 890,
+      "totalTokens": 890,
+      "stateSha256": "1727f22af85ebca4e96e64ccc01c677d0fcf42d9d6f35cd9ee247716edcdfc41",
+      "pass": true
+    },
+    {
+      "id": "case-02",
+      "baselineId": "case-02",
+      "transformation": "base-case",
+      "question": "next_check",
+      "stateTokens": 652,
+      "statePlusBranchTokens": 831,
+      "totalTokens": 831,
+      "stateSha256": "1727f22af85ebca4e96e64ccc01c677d0fcf42d9d6f35cd9ee247716edcdfc41",
+      "pass": true
+    },
+    {
+      "id": "case-03",
+      "baselineId": "case-03",
+      "transformation": "base-case",
+      "question": "probable_cause",
+      "stateTokens": 627,
+      "statePlusBranchTokens": 865,
+      "totalTokens": 865,
+      "stateSha256": "97ae9ec1ee9a7ccc8b0d10da395cd414882396885fdef868c2676588961684a4",
+      "pass": true
+    },
+    {
+      "id": "case-03",
+      "baselineId": "case-03",
+      "transformation": "base-case",
+      "question": "next_check",
+      "stateTokens": 627,
+      "statePlusBranchTokens": 806,
+      "totalTokens": 806,
+      "stateSha256": "97ae9ec1ee9a7ccc8b0d10da395cd414882396885fdef868c2676588961684a4",
+      "pass": true
+    },
+    {
+      "id": "case-04",
+      "baselineId": "case-04",
+      "transformation": "base-case",
+      "question": "probable_cause",
+      "stateTokens": 607,
+      "statePlusBranchTokens": 845,
+      "totalTokens": 845,
+      "stateSha256": "fd72a9f31d36e5dddb8c1d0e0560010fa65f53d5228bfc16d5d24aa34bc4d662",
+      "pass": true
+    },
+    {
+      "id": "case-04",
+      "baselineId": "case-04",
+      "transformation": "base-case",
+      "question": "next_check",
+      "stateTokens": 607,
+      "statePlusBranchTokens": 786,
+      "totalTokens": 786,
+      "stateSha256": "fd72a9f31d36e5dddb8c1d0e0560010fa65f53d5228bfc16d5d24aa34bc4d662",
+      "pass": true
+    },
+    {
+      "id": "case-05",
+      "baselineId": "case-05",
+      "transformation": "base-case",
+      "question": "probable_cause",
+      "stateTokens": 590,
+      "statePlusBranchTokens": 828,
+      "totalTokens": 828,
+      "stateSha256": "6d22b272cb75ec7254b67958de1ece710169119bec83866030610ccafc86a4f9",
+      "pass": true
+    },
+    {
+      "id": "case-05",
+      "baselineId": "case-05",
+      "transformation": "base-case",
+      "question": "next_check",
+      "stateTokens": 590,
+      "statePlusBranchTokens": 769,
+      "totalTokens": 769,
+      "stateSha256": "6d22b272cb75ec7254b67958de1ece710169119bec83866030610ccafc86a4f9",
+      "pass": true
+    },
+    {
+      "id": "case-06",
+      "baselineId": "case-06",
+      "transformation": "base-case",
+      "question": "probable_cause",
+      "stateTokens": 249,
+      "statePlusBranchTokens": 487,
+      "totalTokens": 487,
+      "stateSha256": "2f8169fdc5047fed1361e71c91cbed148c72a874407e65808761b991bd8304d1",
+      "pass": true
+    },
+    {
+      "id": "case-06",
+      "baselineId": "case-06",
+      "transformation": "base-case",
+      "question": "next_check",
+      "stateTokens": 249,
+      "statePlusBranchTokens": 428,
+      "totalTokens": 428,
+      "stateSha256": "2f8169fdc5047fed1361e71c91cbed148c72a874407e65808761b991bd8304d1",
+      "pass": true
+    },
+    {
+      "id": "case-07",
+      "baselineId": "case-07",
+      "transformation": "base-case",
+      "question": "probable_cause",
+      "stateTokens": 886,
+      "statePlusBranchTokens": 1124,
+      "totalTokens": 1124,
+      "stateSha256": "8da58cac42ddaab3dfdc5e552491acabd2f5ddc41fd67afccd5511b701e8f806",
+      "pass": true
+    },
+    {
+      "id": "case-07",
+      "baselineId": "case-07",
+      "transformation": "base-case",
+      "question": "next_check",
+      "stateTokens": 886,
+      "statePlusBranchTokens": 1065,
+      "totalTokens": 1065,
+      "stateSha256": "8da58cac42ddaab3dfdc5e552491acabd2f5ddc41fd67afccd5511b701e8f806",
+      "pass": true
+    },
+    {
+      "id": "case-08",
+      "baselineId": "case-08",
+      "transformation": "base-case",
+      "question": "probable_cause",
+      "stateTokens": 939,
+      "statePlusBranchTokens": 1177,
+      "totalTokens": 1177,
+      "stateSha256": "7c6a7cda82bbcef4848f38d49740f962e61cb735ac1aeec355a8493a55d86bdf",
+      "pass": true
+    },
+    {
+      "id": "case-08",
+      "baselineId": "case-08",
+      "transformation": "base-case",
+      "question": "next_check",
+      "stateTokens": 939,
+      "statePlusBranchTokens": 1118,
+      "totalTokens": 1118,
+      "stateSha256": "7c6a7cda82bbcef4848f38d49740f962e61cb735ac1aeec355a8493a55d86bdf",
+      "pass": true
+    }
+  ]
+}

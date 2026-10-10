@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0",
+  "fixedBeforeFirstRun": "2026-10-10",
+  "notes": "Engineering tolerance chosen before local model execution. Changes invalidate comparability and require a new evaluation version; this is not a production-domain accuracy threshold.",
+  "minimumQuestionChecks": 30,
+  "minimumDomainVariants": 24,
+  "parity": {
+    "sameQ8NativeOrtVsWebgpu": { "maxAbsoluteError": 0.01, "meanAbsoluteError": 0.005, "allowedArgmaxFlips": 0 },
+    "originalCheckpointVsQ8": { "maxAbsoluteError": 0.05, "meanAbsoluteError": 0.02, "allowedArgmaxFlips": 0 }
+  },
+  "timing": { "warmups": 3, "measuredRuns": 30, "cases": ["short", "near-budget", "edited-new-state"], "percentileMethod": "nearest-rank" },
+  "memory": "unavailable unless separately measured with a documented method",
+  "domainAccuracy": "Descriptive synthetic test-set results only; do not reinterpret as production calibration"
+}
