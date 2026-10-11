@@ -25,7 +25,7 @@ import type { SystemOneRequest } from "@ai-ecoverse/kev.js";
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
 app.innerHTML = `
-<header><a class="brand" href="${import.meta.env.BASE_URL}" target="_top"><span class="brand-mark">k</span><span>kev / webgpu<small>← 返回机制图解 · 本地故障排查</small></span></a><div class="header-tags"><span class="pill">合成故障案例</span><span class="pill">KEV 0.8B · Q8</span></div></header>
+<header><a class="brand" href="${import.meta.env.BASE_URL}" target="_top"><span class="brand-mark">k</span><span>kev / webgpu<small>← 返回机制图解 · 本地故障排查</small></span></a><div class="header-tags"><a class="pill" href="${import.meta.env.BASE_URL}decision-models/" target="_top">模型入门 ↗</a><span class="pill">合成故障案例</span><span class="pill">KEV 0.8B · Q8</span></div></header>
 <main><section class="demo-intro"><div class="eyebrow">别只看 AI 的答案，看看答案怎么来的</div><h1>一次查询，<em>从输入到结果。</em></h1><p>Kev 在浏览器里读取观察、比较候选原因，并给出排序。<br>通过一个真实运行过的案例，看看它做了什么、哪里会错，以及要付出多少成本。</p></section>
 <div class="mode-switch" role="tablist" aria-label="演示方式"><button id="mode-story" role="tab" aria-selected="true" aria-controls="query-story">01 看懂一次真实查询 <span>无需下载模型</span></button><button id="mode-live" role="tab" aria-selected="false" aria-controls="live-query">02 用本机运行新查询 <span>主动加载后才推理</span></button></div>
 <section id="query-story" role="tabpanel" aria-labelledby="mode-story" aria-busy="true"><p>正在读取已保存的真实运行记录…</p></section>

@@ -15,6 +15,6 @@ export default defineConfig({
     __APP_REVISION__: JSON.stringify(process.env.APP_REVISION || revision),
   },
   worker: { format: "es" },
-  build: { target: "es2022", rollupOptions: { input: { guide: "index.html", demo: "demo/index.html" } } },
+  build: { target: "es2022", rollupOptions: { input: { guide: "index.html", demo: "demo/index.html", decisionModels: "decision-models/index.html" } } },
   test: { include: ["tests/**/*.test.ts"] },
 });

@@ -2,7 +2,7 @@
 
 **用可点击的图示，解释一份证据怎样变成模型的一次判断。**
 
-[打开六章图解](https://minatoaquamk2.github.io/kev-webgpu/) · [看懂一次真实查询与成本](https://minatoaquamk2.github.io/kev-webgpu/demo/) · [GitHub 源码](https://github.com/minatoaquaMK2/kev-webgpu) · [验证记录](docs/verification.md)
+[打开六章图解](https://minatoaquamk2.github.io/kev-webgpu/) · [Jev / Kev 决策模型入门](https://minatoaquamk2.github.io/kev-webgpu/decision-models/) · [看懂一次真实查询与成本](https://minatoaquamk2.github.io/kev-webgpu/demo/) · [GitHub 源码](https://github.com/minatoaquaMK2/kev-webgpu) · [验证记录](docs/verification.md)
 
 这个项目把一个常见问题拆开演示：存储访问失败后，把观测、问题和候选原因交给 **Kev 0.8B**，让它比较各候选的概率，再用独立规则核对证据。介绍页参考 [intelligent-ui](https://github.com/minatoaquaMK2/intelligent-ui) 的交互讲解思路，点击图中模块即可看到输入、输出、作用和对应源码。
 
@@ -57,6 +57,22 @@ flowchart LR
 
 想实际运行时，打开页面下方的工作台，或直接访问 [`/demo/`](https://minatoaquamk2.github.io/kev-webgpu/demo/)。先看默认的真实历史示例；要提交新查询，切到 **用本机运行新查询**，选择合成案例，主动点击 **加载本机模型**，再点击 **提交 1 次原因查询**。编辑或导入新的证据后，旧结果会失效，需要重新运行。
 
+## Jev / Kev 决策模型入门
+
+新增的 [`/decision-models/`](https://minatoaquamk2.github.io/kev-webgpu/decision-models/) 面向第一次接触决策模型的读者，先查阅官方文档与固定源码，再用五组可点击 SVG 讲解：
+
+| 章节 | 交互中实际发生什么 |
+| --- | --- |
+| 输入与类型 | 编辑背景、切换 Choice / Noul / Score，调用固定 kev.js 的 `validate / toRecord` 查看真实请求转换；不运行模型 |
+| 名称与关系 | 比较 Jev 托管服务、独立 Kev 模型与本站浏览器路线 |
+| 候选怎样评分 | 手动改变原始分数与温度，运行 softmax 和 Choice confidence 公式；明确标为数学演示 |
+| 执行与开销 | 查看 Worker、WASM、WebGPU、CPU 的分工，区分首次准备与单次查询 |
+| 结果与行动 | 对全部 34 条历史记录改变保留门槛，重新统计保留、错误与复核数量；原始模型结果不变 |
+
+内部计算图只解释公开 Kev 实现，不将它当作 Jev 的官方内部架构。问题格式正确和高 confidence 都不等于判断正确；历史阈值实验也不能用来确定生产阈值。来源和版本见[研究笔记](docs/decision-models-research.md)。本页无模型下载、Jev API 调用或设备操作。
+
+![候选评分的交互教学图](docs/images/decision-scoring.png)
+
 ## 在本机启动
 
 使用 **Node.js 24** 和 npm；真实推理需要支持 WebGPU、`shader-f16` 及相应缓冲区限制的浏览器/GPU。图解和案例浏览不要求先加载模型。
@@ -71,6 +87,7 @@ npm run dev
 默认地址：
 
 - 图解：`http://127.0.0.1:5173/`
+- 决策模型入门：`http://127.0.0.1:5173/decision-models/`
 - 真实推理工作台：`http://127.0.0.1:5173/demo/`
 - 开发用模型验证器：`http://127.0.0.1:5173/tests/model-validation/index.html`
 
@@ -85,7 +102,7 @@ npm run dev
 | 命令 | 作用 |
 | --- | --- |
 | `npm test` | 规则、证据处理、运行时与界面的单元测试 |
-| `npm run build` | TypeScript 检查并构建图解与工作台到 `dist/` |
+| `npm run build` | TypeScript 检查并构建两种图解与工作台到 `dist/` |
 | `npm run check` | 依次执行单元测试和构建 |
 | `npm run preview` | 本机预览已经构建的静态页面 |
 | `npm run test:browser` | Playwright 浏览器 UI 检查，需要已安装对应 Chromium |
@@ -100,7 +117,7 @@ npm run dev
 
 ```sh
 PAGES_BASE=/kev-webgpu/ npm run build
-npm run preview
+PAGES_BASE=/kev-webgpu/ npm run preview
 ```
 
 随后打开 `http://127.0.0.1:4173/kev-webgpu/` 和 `http://127.0.0.1:4173/kev-webgpu/demo/`。Pages 工作流在 `main` 推送或手动触发时构建并发布；部署结果可在 [Actions](https://github.com/minatoaquaMK2/kev-webgpu/actions) 查看。具体设置和上线验收见 [部署说明](docs/deployment.md)。

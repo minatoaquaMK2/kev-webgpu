@@ -42,7 +42,7 @@ jobs:
         run: |
           from pathlib import Path
           root = Path('dist')
-          for entry in ('index.html', 'demo/index.html'):
+          for entry in ('index.html', 'demo/index.html', 'decision-models/index.html'):
               assert (root / entry).is_file(), f'Missing site entry: {entry}'
           size = 0
           for path in root.rglob('*'):

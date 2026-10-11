@@ -10,7 +10,7 @@
 npm ci
 npm test
 PAGES_BASE=/kev-webgpu/ npm run build
-npm run preview
+PAGES_BASE=/kev-webgpu/ npm run preview
 ```
 
 在 preview 输出的本地地址后加上 `/kev-webgpu/` 或 `/kev-webgpu/demo/`。默认只监听本机。`PAGES_BASE` 必须与部署目录一致，并保留结尾的 `/`。正常构建不包含开发用模型验证页面、原始测试报告或模型权重。
