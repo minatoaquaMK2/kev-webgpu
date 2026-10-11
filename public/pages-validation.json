@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "1.0",
+  "url": "https://minatoaquamk2.github.io/kev-webgpu/",
+  "testedCommit": "6d55c3c9f8b7b40ab02852a2fcc49d5c605bc2d8",
+  "recordedAt": "2026-10-11T02:24:03.563Z",
+  "deploymentRun": "https://github.com/minatoaquaMK2/kev-webgpu/actions/runs/38104844655",
+  "hardware": "Apple M3, Chrome 154.0.8037.99, normal browser with no unsafe flags",
+  "deviceProbe": {
+    "available": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "shaderF16": true
+  },
+  "caseId": "case-01-C",
+  "includedIds": [
+    "ev-01",
+    "ev-02",
+    "ev-03",
+    "ev-04",
+    "ev-05",
+    "ev-06",
+    "ev-07",
+    "ev-08",
+    "ev-09"
+  ],
+  "response": {
+    "model": "jaredpalmer/kev-0.8b@9a45d25eb2ab761841196625383fa1dff0e56c1e:text:q8",
+    "answers": {
+      "probable_cause": {
+        "type": "choice",
+        "choice": "host_volume_mapping_gap",
+        "confidence": 0.2341,
+        "probabilities": {
+          "storage_network_mtu_mismatch": 0.2273,
+          "storage_network_connectivity_loss": 0.0905,
+          "host_volume_mapping_gap": 0.3299,
+          "powerstore_capacity_write_protect": 0.023,
+          "powerstore_node_or_component_fault": 0.0347,
+          "other_or_multiple_causes": 0.1342,
+          "insufficient_evidence": 0.1298,
+          "no_active_incident": 0.0306
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 1062,
+      "output_tokens": 155
+    },
+    "latency_ms": 1179.5
+  },
+  "unroundedProbabilities": [
+    [
+      0.22732998713991429,
+      0.09047871701552902,
+      0.329852387087718,
+      0.023031893526899286,
+      0.03467101874997669,
+      0.13423723406200794,
+      0.1298238249129868,
+      0.030574937504968
+    ]
+  ],
+  "wallMs": 1189.800000011921,
+  "gpuProof": {
+    "executionProviders": [
+      "webgpu"
+    ],
+    "gpuTensorOutputs": 48,
+    "kernelCount": 0,
+    "kernelTypes": [],
+    "commands": {
+      "available": true,
+      "dispatches": 1160,
+      "submissions": 131,
+      "pipelineLabels": [],
+      "method": "public-WebGPU-command-observation"
+    },
+    "largeComputeObserved": false,
+    "verification": "gpu_outputs_observed_profiling_unavailable"
+  },
+  "provenance": {
+    "checkpoint": "9a45d25eb2ab761841196625383fa1dff0e56c1e",
+    "bundleCommit": "6ae610faac5669a69d4c633d44fe1d7fa56dbb58",
+    "bundleRevision": "a4c2a04e456b9f7b",
+    "variant": "q8",
+    "runtimeCommit": "ca072e49e65b716af478db8f464e1fac8a0f4ad5",
+    "runtimeVersion": "1.0.0",
+    "ortVersion": "1.30.0",
+    "temperature": 2.3510958125672174
+  },
+  "evidenceHash": "acff9bb575c9a7d5e0b3e479ab714ab981f25c6164688374fd52f98bdd484d5e",
+  "semanticResult": "failed: expected MTU mismatch, actual host_volume_mapping_gap; result kept unchanged",
+  "exportSha256": "38843ae4edb083dfca4a287b05e472f97f0b163a290e954ad2cb9fd762bbaf44",
+  "ui": {
+    "status": "passed",
+    "scope": "Six chapters, real input preview, history probabilities, mobile width; no automatic model or Worker activity",
+    "browser": "154.0.8037.99"
+  },
+  "limits": [
+    "Single published-origin inference smoke check, not a new performance benchmark",
+    "Published-origin offline inference not separately repeated; local new-input offline test passed",
+    "Full formal parity and peak VRAM remain not verified",
+    "Named GPU kernel profiling is unavailable in this execution; GPU outputs and command counts are recorded without changing verification flags"
+  ]
+}
