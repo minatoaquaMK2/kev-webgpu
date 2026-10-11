@@ -103,7 +103,7 @@ test('editing live evidence cannot turn historical output or cost into a new pre
   const edited = JSON.parse(await page.locator('#json-editor').inputValue());
   const marker = 'Edited input is not the historical query.';
   edited.incident.symptom += ` ${marker}`;
-  await page.locator('summary').filter({ hasText: 'Edit evidence JSON' }).click();
+  await page.locator('details:has(#json-editor) > summary').click();
   await page.locator('#json-editor').fill(JSON.stringify(edited));
   await expectNoLivePrediction(page);
   await page.locator('#apply-json').click();
@@ -133,7 +133,7 @@ test('live staged inputs render untrusted evidence as text without automatic dow
   await expect(page.locator('#evidence-list article')).toHaveCount(9);
   const bundle = JSON.parse(await page.locator('#json-editor').inputValue());
   bundle.evidence[0].excerpt = '<img src=x onerror="alert(1)">';
-  await page.locator('summary').filter({ hasText: 'Edit evidence JSON' }).click();
+  await page.locator('details:has(#json-editor) > summary').click();
   await page.locator('#json-editor').fill(JSON.stringify(bundle));
   await page.locator('#apply-json').click();
   await expect(page.locator('#evidence-list img')).toHaveCount(0);

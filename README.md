@@ -2,13 +2,13 @@
 
 **用可点击的图示，解释一份证据怎样变成模型的一次判断。**
 
-[打开六章图解](https://minatoaquamk2.github.io/kev-webgpu/) · [看懂一次真实 Query 与成本](https://minatoaquamk2.github.io/kev-webgpu/demo/) · [GitHub 源码](https://github.com/minatoaquaMK2/kev-webgpu) · [验证记录](docs/verification.md)
+[打开六章图解](https://minatoaquamk2.github.io/kev-webgpu/) · [看懂一次真实查询与成本](https://minatoaquamk2.github.io/kev-webgpu/demo/) · [GitHub 源码](https://github.com/minatoaquaMK2/kev-webgpu) · [验证记录](docs/verification.md)
 
 这个项目把一个常见问题拆开演示：存储访问失败后，把观测、问题和候选原因交给 **Kev 0.8B**，让它比较各候选的概率，再用独立规则核对证据。介绍页参考 [intelligent-ui](https://github.com/minatoaquaMK2/intelligent-ui) 的交互讲解思路，点击图中模块即可看到输入、输出、作用和对应源码。
 
 这是学习与研究演示。真实 q8 推理链路已在 Apple M3 / Chrome 上运行；**当前合成 RCA 判断仅 8/34 正确，语义验收未通过**。错误结果原样保留，不能作为生产诊断工具。
 
-![一次真实 Query 的输入到结果](docs/images/demo-query.png)
+![一次真实查询的输入到结果](docs/images/demo-query.png)
 
 ## 先理解四个角色
 
@@ -55,7 +55,7 @@ flowchart LR
 
 图解不会自动下载模型。历史回放读取的是 [34 条已记录结果](public/guide-validation.json)，不是当前设备的新推理；切换下载流程图也不会改变真实网络或缓存。
 
-想实际运行时，打开页面下方的工作台，或直接访问 [`/demo/`](https://minatoaquamk2.github.io/kev-webgpu/demo/)。先看默认的真实历史示例；要提交新查询，切到 **用本机跑新的 Query**，选择合成案例，主动点击 **加载本机模型**，再点击 **提交 1 次原因查询**。编辑或导入新的证据后，旧结果会失效，需要重新运行。
+想实际运行时，打开页面下方的工作台，或直接访问 [`/demo/`](https://minatoaquamk2.github.io/kev-webgpu/demo/)。先看默认的真实历史示例；要提交新查询，切到 **用本机运行新查询**，选择合成案例，主动点击 **加载本机模型**，再点击 **提交 1 次原因查询**。编辑或导入新的证据后，旧结果会失效，需要重新运行。
 
 ## 在本机启动
 
@@ -105,7 +105,7 @@ npm run preview
 
 随后打开 `http://127.0.0.1:4173/kev-webgpu/` 和 `http://127.0.0.1:4173/kev-webgpu/demo/`。Pages 工作流在 `main` 推送或手动触发时构建并发布；部署结果可在 [Actions](https://github.com/minatoaquaMK2/kev-webgpu/actions) 查看。具体设置和上线验收见 [部署说明](docs/deployment.md)。
 
-## 看懂一次 query：输入、输出与成本
+## 看懂一次查询：输入、输出与成本
 
 真实工作台的默认示例回放使用 [query-example.json](public/query-example.json)：这是一次已经发生的线上 WebGPU 查询，完整保留输入快照和模型返回值。它与当前设备的“实时运行”分开；打开回放不代表模型正在你设备上运行。新推理仍需要主动加载模型并点击分析。
 
