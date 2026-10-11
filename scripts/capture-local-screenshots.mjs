@@ -20,11 +20,17 @@ async function capture(name, position = 'top') {
 }
 try {
   await page.goto('http://127.0.0.1:5173/demo/');
+  await page.locator('#mode-live').click();
+  await expect(page.locator('#mode-live')).toHaveAttribute('aria-selected', 'true');
+  await expect(page.locator('#live-query')).toBeVisible();
+  await expect(page.locator('#query-story')).toBeHidden();
+  await expect(page.locator('#stages button')).toHaveCount(3);
   await page.locator('#stages button').nth(2).click();
   await page.locator('#load').click();
   await expect(page.locator('#analyze')).toBeEnabled({ timeout: 240000 });
   await page.locator('#analyze').click();
   await expect(page.locator('#analyze')).toBeEnabled({ timeout: 120000 });
+  await expect(page.locator('#freshness')).toHaveText('当前输入');
   report.prediction = JSON.parse(await page.locator('#raw').textContent());
   if (!report.prediction.gpuProof.commands.dispatches) throw Error('Real GPU execution absent');
   await capture('local-ui-desktop.png');
@@ -36,11 +42,13 @@ try {
   const editor = page.locator('#json-editor');
   const value = JSON.parse(await editor.inputValue());
   value.incident.symptom += ' Synthetic offline screenshot verification.';
-  await page.getByText('Edit evidence JSON', { exact: true }).click();
+  await page.locator('details:has(#json-editor) > summary').click();
   await editor.fill(JSON.stringify(value));
+  await expect(page.locator('#freshness')).toHaveText('已过期 · 输入有变化');
   await page.locator('#apply-json').click();
   await page.locator('#analyze').click();
   await expect(page.locator('#analyze')).toBeEnabled({ timeout: 120000 });
+  await expect(page.locator('#freshness')).toHaveText('当前输入');
   report.offlinePrediction = JSON.parse(await page.locator('#raw').textContent());
   await capture('local-ui-offline.png');
   report.status = 'passed';

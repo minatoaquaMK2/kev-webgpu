@@ -16,6 +16,10 @@ context.on('response', response => { if (response.status() >= 400) report.respon
 page.on('pageerror', error => report.pageErrors.push(String(error)));
 try {
   await page.goto(demo);
+  await page.locator('#mode-live').click();
+  await expect(page.locator('#mode-live')).toHaveAttribute('aria-selected', 'true');
+  await expect(page.locator('#live-query')).toBeVisible();
+  await expect(page.locator('#query-story')).toBeHidden();
   await expect(page.locator('#stages button')).toHaveCount(3);
   report.noAutomaticModelDownload = report.requests.every(r => r.origin === target.origin);
   await page.locator('#stages button').nth(2).click();
@@ -24,6 +28,7 @@ try {
   await expect(page.locator('#analyze')).toBeEnabled({ timeout: 240000 });
   await page.locator('#analyze').click();
   await expect(page.locator('#analyze')).toBeEnabled({ timeout: 120000 });
+  await expect(page.locator('#freshness')).toHaveText('当前输入');
   report.prediction = JSON.parse(await page.locator('#raw').textContent());
   if (!report.prediction.gpuProof.gpuTensorOutputs || !report.prediction.gpuProof.commands?.dispatches) throw Error('Real GPU execution absent');
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));

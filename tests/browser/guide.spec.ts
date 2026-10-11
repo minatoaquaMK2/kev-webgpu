@@ -86,6 +86,8 @@ test('real demo is mounted only after the explicit open action', async ({ page }
   const frame = page.locator('#demo-frame');
   await expect(frame).toBeVisible();
   await expect(frame).toHaveAttribute('src', /(?:^|\/)demo\/$/);
+  await expect(page.frameLocator('#demo-frame').locator('#query-story')).toBeVisible();
+  await page.frameLocator('#demo-frame').locator('#mode-live').click();
   await expect(page.frameLocator('#demo-frame').locator('#stages button')).toHaveCount(3);
   await expect(page.frameLocator('#demo-frame').locator('#analyze')).toBeDisabled();
   expect(activity.external).toEqual([]);

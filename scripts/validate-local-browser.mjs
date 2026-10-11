@@ -58,6 +58,7 @@ async function uiResult() { return JSON.parse(await page.locator('#raw').textCon
 async function analyze() {
   await page.locator('#analyze').click();
   await expect(page.locator('#analyze')).toBeEnabled({ timeout: 120000 });
+  await expect(page.locator('#freshness')).toHaveText('当前输入');
   const value = await uiResult();
   if (value.stale || !value.gpuProof.gpuTensorOutputs) throw Error('No current GPU-backed model result');
   return value;
@@ -93,6 +94,10 @@ try {
   await expect.poll(() => activeWorkers).toBe(0);
   phase = 'cached-ui-load';
   await page.goto(`${base.replace(/\/$/, '')}/demo/`);
+  await page.locator('#mode-live').click();
+  await expect(page.locator('#mode-live')).toHaveAttribute('aria-selected', 'true');
+  await expect(page.locator('#live-query')).toBeVisible();
+  await expect(page.locator('#query-story')).toBeHidden();
   await expect(page.locator('#stages button')).toHaveCount(3);
   await page.locator('#stages button').nth(2).click();
   const cacheStart = requests.length, started = Date.now();
@@ -115,9 +120,9 @@ try {
   marker = `synthetic-offline-${randomUUID()}`;
   const edited = JSON.parse(await page.locator('#json-editor').inputValue());
   edited.incident.symptom += ` Local operator note ${marker}.`;
-  await page.getByText('Edit evidence JSON', { exact: true }).click();
+  await page.locator('details:has(#json-editor) > summary').click();
   await page.locator('#json-editor').fill(JSON.stringify(edited));
-  await expect(page.locator('#freshness')).toContainText('STALE');
+  await expect(page.locator('#freshness')).toHaveText('已过期 · 输入有变化');
   report.checks.editMarksStale = true;
   await page.locator('#apply-json').click();
   report.offlinePrediction = await analyze();
@@ -143,7 +148,7 @@ try {
   edited.incident.symptom += ' Imported synthetic observation.';
   await page.locator('#import').setInputFiles({ name: 'synthetic-local-import.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(edited)) });
   await expect(page.locator('#notice')).toContainText('JSON imported locally');
-  await expect(page.locator('#freshness')).toContainText('STALE');
+  await expect(page.locator('#freshness')).toHaveText('已过期 · 输入有变化');
   report.importedPrediction = await analyze();
   report.checks.localImportWorksOffline = report.importedPrediction.evidenceHash !== report.offlinePrediction.evidenceHash;
   phase = 'unload';

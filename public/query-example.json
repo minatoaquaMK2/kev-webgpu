@@ -1,0 +1,461 @@
+{
+  "schemaVersion": "1.0",
+  "synthetic": true,
+  "historicalReplay": true,
+  "timestamp": "2026-10-11T02:24:03.563Z",
+  "timestampKind": "exportedAt",
+  "timestampNote": "The source export records export time; it does not record a separate query start or end timestamp.",
+  "sourceCommit": "6d55c3c9f8b7b40ab02852a2fcc49d5c605bc2d8",
+  "appVersion": "2.0.0",
+  "source": {
+    "file": "pages-live-model-export.json",
+    "sha256": "38843ae4edb083dfca4a287b05e472f97f0b163a290e954ad2cb9fd762bbaf44"
+  },
+  "inputSnapshot": {
+    "schemaVersion": "1.0",
+    "synthetic": true,
+    "incident": {
+      "id": "incident-01",
+      "symptom": "After adding ESXi-04, storage-access validation timed out. Existing hosts still access the datastore.",
+      "startedAt": "2026-10-01T09:00:00Z"
+    },
+    "scope": {
+      "platform": "Dell Private Cloud",
+      "hypervisor": "VMware vSphere",
+      "storage": "PowerStore",
+      "protocol": "iSCSI",
+      "datastoreType": "VMFS",
+      "dpcVersion": "not_specified",
+      "powerstoreOSVersion": "not_specified"
+    },
+    "topology": {
+      "entities": [
+        {
+          "id": "workflow-01",
+          "kind": "workflow"
+        },
+        {
+          "id": "vcenter-01",
+          "kind": "vcenter"
+        },
+        {
+          "id": "esxi-01",
+          "kind": "host"
+        },
+        {
+          "id": "esxi-02",
+          "kind": "host"
+        },
+        {
+          "id": "esxi-03",
+          "kind": "host"
+        },
+        {
+          "id": "esxi-04",
+          "kind": "host"
+        },
+        {
+          "id": "cluster-01",
+          "kind": "host_group"
+        },
+        {
+          "id": "iqn.demo:esxi-04",
+          "kind": "initiator"
+        },
+        {
+          "id": "iqn.demo:esxi-02",
+          "kind": "initiator"
+        },
+        {
+          "id": "esxi-04:vmk1",
+          "kind": "vmkernel"
+        },
+        {
+          "id": "switch-a:port-04",
+          "kind": "switch_port"
+        },
+        {
+          "id": "switch-b:port-04",
+          "kind": "switch_port"
+        },
+        {
+          "id": "powerstore-01:port-a",
+          "kind": "storage_port"
+        },
+        {
+          "id": "powerstore-01",
+          "kind": "appliance"
+        },
+        {
+          "id": "volume-01",
+          "kind": "volume"
+        },
+        {
+          "id": "datastore-01",
+          "kind": "datastore"
+        }
+      ],
+      "relations": [
+        {
+          "from": "workflow-01",
+          "to": "vcenter-01",
+          "kind": "coordinates"
+        },
+        {
+          "from": "esxi-04",
+          "to": "iqn.demo:esxi-04",
+          "kind": "initiator"
+        },
+        {
+          "from": "esxi-02",
+          "to": "iqn.demo:esxi-02",
+          "kind": "initiator"
+        },
+        {
+          "from": "esxi-04",
+          "to": "cluster-01",
+          "kind": "member_of"
+        },
+        {
+          "from": "esxi-02",
+          "to": "cluster-01",
+          "kind": "member_of"
+        },
+        {
+          "from": "esxi-04",
+          "to": "esxi-04:vmk1",
+          "kind": "uses",
+          "pathId": "storage-a"
+        },
+        {
+          "from": "esxi-04:vmk1",
+          "to": "switch-a:port-04",
+          "kind": "connected",
+          "pathId": "storage-a"
+        },
+        {
+          "from": "switch-a:port-04",
+          "to": "powerstore-01:port-a",
+          "kind": "connected",
+          "pathId": "storage-a"
+        },
+        {
+          "from": "powerstore-01:port-a",
+          "to": "powerstore-01",
+          "kind": "on",
+          "pathId": "storage-a"
+        },
+        {
+          "from": "esxi-04",
+          "to": "switch-b:port-04",
+          "kind": "connected",
+          "pathId": "storage-b"
+        },
+        {
+          "from": "switch-b:port-04",
+          "to": "powerstore-01",
+          "kind": "connected",
+          "pathId": "storage-b"
+        },
+        {
+          "from": "powerstore-01",
+          "to": "volume-01",
+          "kind": "hosts"
+        },
+        {
+          "from": "volume-01",
+          "to": "datastore-01",
+          "kind": "backs"
+        }
+      ]
+    },
+    "coverage": [
+      {
+        "source": "powerstore",
+        "entityId": "powerstore-01",
+        "from": "2026-10-01T09:00:00Z",
+        "to": "2026-10-01T09:05:00Z",
+        "completeness": "complete"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-01",
+        "source": "dpc",
+        "entityId": "workflow-01",
+        "observedAt": "2026-10-01T09:00:00Z",
+        "temporalState": "current",
+        "kind": "workflow_event",
+        "facts": {
+          "phase": "normalized_storage_access_validation",
+          "status": "timeout",
+          "hostId": "esxi-04",
+          "volumeId": "volume-01"
+        }
+      },
+      {
+        "id": "ev-02",
+        "source": "esxi",
+        "entityId": "esxi-04",
+        "observedAt": "2026-10-01T09:00:00Z",
+        "temporalState": "current",
+        "kind": "datastore_access",
+        "facts": {
+          "hostId": "esxi-04",
+          "volumeId": "volume-01",
+          "datastoreId": "datastore-01",
+          "operation": "read_write",
+          "result": "timeout"
+        }
+      },
+      {
+        "id": "ev-03",
+        "source": "esxi",
+        "entityId": "esxi-01",
+        "observedAt": "2026-10-01T09:00:00Z",
+        "temporalState": "current",
+        "kind": "datastore_access",
+        "facts": {
+          "hostId": "esxi-01",
+          "volumeId": "volume-01",
+          "datastoreId": "datastore-01",
+          "operation": "read_write",
+          "result": "success"
+        }
+      },
+      {
+        "id": "ev-04",
+        "source": "esxi",
+        "entityId": "esxi-04:vmk1",
+        "observedAt": "2026-10-01T09:01:00Z",
+        "temporalState": "current",
+        "kind": "vmkping_result",
+        "facts": {
+          "hostId": "esxi-04",
+          "applianceId": "powerstore-01",
+          "vmk": "vmk1",
+          "target": "192.0.2.10",
+          "payloadBytes": 1472,
+          "df": true,
+          "success": true,
+          "attempts": 3
+        },
+        "pathId": "storage-a"
+      },
+      {
+        "id": "ev-05",
+        "source": "esxi",
+        "entityId": "esxi-04:vmk1",
+        "observedAt": "2026-10-01T09:01:00Z",
+        "temporalState": "current",
+        "kind": "vmkping_result",
+        "facts": {
+          "hostId": "esxi-04",
+          "applianceId": "powerstore-01",
+          "vmk": "vmk1",
+          "target": "192.0.2.10",
+          "payloadBytes": 8972,
+          "df": true,
+          "success": false,
+          "attempts": 3
+        },
+        "pathId": "storage-a"
+      },
+      {
+        "id": "ev-06",
+        "source": "powerstore",
+        "entityId": "powerstore-01",
+        "observedAt": "2026-10-01T09:02:00Z",
+        "temporalState": "current",
+        "kind": "volume_mapping",
+        "facts": {
+          "hostId": "esxi-04",
+          "hostGroupIds": [
+            "cluster-01"
+          ],
+          "initiator": "iqn.demo:esxi-04",
+          "volumeId": "volume-01",
+          "effectiveMappingExists": true,
+          "inventoryComplete": true,
+          "directMappingExists": true,
+          "groupMappings": [
+            {
+              "hostGroupId": "cluster-01",
+              "volumeId": "volume-01",
+              "mapped": false
+            }
+          ]
+        }
+      },
+      {
+        "id": "ev-07",
+        "source": "esxi",
+        "entityId": "esxi-04:vmk1",
+        "observedAt": "2026-10-01T09:03:00Z",
+        "temporalState": "current",
+        "kind": "mtu_config",
+        "facts": {
+          "interfaceId": "esxi-04:vmk1",
+          "hostId": "esxi-04",
+          "applianceId": "powerstore-01",
+          "configuredMtu": 9000,
+          "designMtu": 9000
+        },
+        "pathId": "storage-a"
+      },
+      {
+        "id": "ev-08",
+        "source": "powerstore",
+        "entityId": "powerstore-01:port-a",
+        "observedAt": "2026-10-01T09:03:00Z",
+        "temporalState": "current",
+        "kind": "mtu_config",
+        "facts": {
+          "interfaceId": "powerstore-01:port-a",
+          "hostId": "esxi-04",
+          "applianceId": "powerstore-01",
+          "configuredMtu": 9000,
+          "designMtu": 9000
+        },
+        "pathId": "storage-a"
+      },
+      {
+        "id": "ev-09",
+        "source": "network",
+        "entityId": "switch-a:port-04",
+        "observedAt": "2026-10-01T09:03:00Z",
+        "temporalState": "current",
+        "kind": "mtu_config",
+        "facts": {
+          "interfaceId": "switch-a:port-04",
+          "hostId": "esxi-04",
+          "applianceId": "powerstore-01",
+          "configuredMtu": 1500,
+          "designMtu": 9000
+        },
+        "pathId": "storage-a"
+      }
+    ]
+  },
+  "selectedIDs": [
+    "ev-01",
+    "ev-02",
+    "ev-03",
+    "ev-04",
+    "ev-05",
+    "ev-06",
+    "ev-07",
+    "ev-08",
+    "ev-09"
+  ],
+  "excludedCount": 0,
+  "evidenceHash": "acff9bb575c9a7d5e0b3e479ab714ab981f25c6164688374fd52f98bdd484d5e",
+  "domainVersion": "dpc-powerstore-iscsi-1.0.0",
+  "response": {
+    "model": "jaredpalmer/kev-0.8b@9a45d25eb2ab761841196625383fa1dff0e56c1e:text:q8",
+    "answers": {
+      "probable_cause": {
+        "type": "choice",
+        "choice": "host_volume_mapping_gap",
+        "confidence": 0.2341,
+        "probabilities": {
+          "storage_network_mtu_mismatch": 0.2273,
+          "storage_network_connectivity_loss": 0.0905,
+          "host_volume_mapping_gap": 0.3299,
+          "powerstore_capacity_write_protect": 0.023,
+          "powerstore_node_or_component_fault": 0.0347,
+          "other_or_multiple_causes": 0.1342,
+          "insufficient_evidence": 0.1298,
+          "no_active_incident": 0.0306
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 1062,
+      "output_tokens": 155
+    },
+    "latency_ms": 1179.5
+  },
+  "unroundedProbabilities": [
+    [
+      0.22732998713991429,
+      0.09047871701552902,
+      0.329852387087718,
+      0.023031893526899286,
+      0.03467101874997669,
+      0.13423723406200794,
+      0.1298238249129868,
+      0.030574937504968
+    ]
+  ],
+  "usage": {
+    "stateTokens": 824,
+    "branchTokens": [
+      1062
+    ],
+    "totalTokens": 1062
+  },
+  "wallMs": 1189.800000011921,
+  "timing": {
+    "preprocess": 0,
+    "vision": 0,
+    "state": 484.5,
+    "branches": 693.5999999940395,
+    "cached": false,
+    "imageTokens": 0
+  },
+  "gpuProof": {
+    "executionProviders": [
+      "webgpu"
+    ],
+    "gpuTensorOutputs": 48,
+    "kernelCount": 0,
+    "kernelTypes": [],
+    "commands": {
+      "available": true,
+      "dispatches": 1160,
+      "submissions": 131,
+      "pipelineLabels": [],
+      "method": "public-WebGPU-command-observation"
+    },
+    "largeComputeObserved": false,
+    "verification": "gpu_outputs_observed_profiling_unavailable"
+  },
+  "provenance": {
+    "checkpoint": "9a45d25eb2ab761841196625383fa1dff0e56c1e",
+    "bundleCommit": "6ae610faac5669a69d4c633d44fe1d7fa56dbb58",
+    "bundleRevision": "a4c2a04e456b9f7b",
+    "variant": "q8",
+    "runtimeCommit": "ca072e49e65b716af478db8f464e1fac8a0f4ad5",
+    "runtimeVersion": "1.0.0",
+    "ortVersion": "1.30.0",
+    "temperature": 2.3510958125672174
+  },
+  "expected": {
+    "caseId": "case-01-C",
+    "labels": [
+      "storage_network_mtu_mismatch"
+    ],
+    "selected": "host_volume_mapping_gap",
+    "correct": false,
+    "purpose": "post-hoc-evaluation-only",
+    "notSentToModel": true,
+    "labelSource": "tests/model-validation/expected-labels.ts",
+    "note": "The input matches the public synthetic case-01 stage C. These labels are for comparison after inference and were not model input."
+  },
+  "costInterpretation": {
+    "cloudInferenceApiCalls": 0,
+    "cloudInferenceApiCallsBasis": "Architecture: this query invokes the model in the browser; this is not a measurement of all network requests or a billing record.",
+    "currencyCost": null,
+    "electricityCost": null,
+    "peakVramBytes": null,
+    "actualTransferredBytes": null,
+    "notes": [
+      "wallMs is recorded query wall time after model loading, not first-load time or a cross-device guarantee.",
+      "usage.totalTokens and branchTokens already include the state tokens; do not add stateTokens again.",
+      "response.usage.output_tokens counts tokenized answer JSON in kev.js, not autoregressive generated text or billed cloud tokens.",
+      "GPU dispatches, submissions and output tensor counts are recorded; this per-query record does not contain named kernel profiling or GPU-memory measurements.",
+      "One-time public model loading and static-resource traffic are separate from this query; transfer bytes and money costs were not measured in this export."
+    ]
+  }
+}

@@ -2,13 +2,13 @@
 
 **用可点击的图示，解释一份证据怎样变成模型的一次判断。**
 
-[打开六章图解](https://minatoaquamk2.github.io/kev-webgpu/) · [打开真实推理工作台](https://minatoaquamk2.github.io/kev-webgpu/demo/) · [GitHub 源码](https://github.com/minatoaquaMK2/kev-webgpu) · [验证记录](docs/verification.md)
+[打开六章图解](https://minatoaquamk2.github.io/kev-webgpu/) · [看懂一次真实 Query 与成本](https://minatoaquamk2.github.io/kev-webgpu/demo/) · [GitHub 源码](https://github.com/minatoaquaMK2/kev-webgpu) · [验证记录](docs/verification.md)
 
 这个项目把一个常见问题拆开演示：存储访问失败后，把观测、问题和候选原因交给 **Kev 0.8B**，让它比较各候选的概率，再用独立规则核对证据。介绍页参考 [intelligent-ui](https://github.com/minatoaquaMK2/intelligent-ui) 的交互讲解思路，点击图中模块即可看到输入、输出、作用和对应源码。
 
 这是学习与研究演示。真实 q8 推理链路已在 Apple M3 / Chrome 上运行；**当前合成 RCA 判断仅 8/34 正确，语义验收未通过**。错误结果原样保留，不能作为生产诊断工具。
 
-![Kev WebGPU 中文交互图解首页](docs/images/guide-home.png)
+![一次真实 Query 的输入到结果](docs/images/demo-query.png)
 
 ## 先理解四个角色
 
@@ -55,7 +55,7 @@ flowchart LR
 
 图解不会自动下载模型。历史回放读取的是 [34 条已记录结果](public/guide-validation.json)，不是当前设备的新推理；切换下载流程图也不会改变真实网络或缓存。
 
-想实际运行时，打开页面下方的工作台，或直接访问 [`/demo/`](https://minatoaquamk2.github.io/kev-webgpu/demo/)。选择合成案例，主动点击 **Load** 加载模型，再点击 **Analyze** 分析。编辑或导入新的证据后，旧结果会失效，需要重新运行。
+想实际运行时，打开页面下方的工作台，或直接访问 [`/demo/`](https://minatoaquamk2.github.io/kev-webgpu/demo/)。先看默认的真实历史示例；要提交新查询，切到 **用本机跑新的 Query**，选择合成案例，主动点击 **加载本机模型**，再点击 **提交 1 次原因查询**。编辑或导入新的证据后，旧结果会失效，需要重新运行。
 
 ## 在本机启动
 
@@ -105,9 +105,34 @@ npm run preview
 
 随后打开 `http://127.0.0.1:4173/kev-webgpu/` 和 `http://127.0.0.1:4173/kev-webgpu/demo/`。Pages 工作流在 `main` 推送或手动触发时构建并发布；部署结果可在 [Actions](https://github.com/minatoaquaMK2/kev-webgpu/actions) 查看。具体设置和上线验收见 [部署说明](docs/deployment.md)。
 
+## 看懂一次 query：输入、输出与成本
+
+真实工作台的默认示例回放使用 [query-example.json](public/query-example.json)：这是一次已经发生的线上 WebGPU 查询，完整保留输入快照和模型返回值。它与当前设备的“实时运行”分开；打开回放不代表模型正在你设备上运行。新推理仍需要主动加载模型并点击分析。
+
+| 问题 | 这次记录中的内容 |
+| --- | --- |
+| Input：模型看到了什么？ | `case-01-C` 的 9 条合成观测，包含小包可达、大包失败、有效卷映射及路径 MTU 配置；原始快照和被选证据 ID 可展开核对 |
+| Model：谁在做判断？ | 固定 Kev-0.8B text q8，kev.js 1.0.0 / ORT 1.30.0，在浏览器通过 WebGPU 执行 |
+| Output：模型返回什么？ | 八个候选的概率及选中的 `host_volume_mapping_gap`；原始响应与未四舍五入概率都保留 |
+| Outcome：这个答案怎样？ | 事后标签期望 `storage_network_mtu_mismatch`，所以这次模型判断错误；标签只用于事后核对，不进入模型输入 |
+
+这次单条记录的资源消耗：
+
+| 指标 | 实际记录 | 怎样理解 |
+| --- | --- | --- |
+| 模型输入 | 总计 1062 token，其中 state 为 824 token | 总数已包含 state，不要再相加 |
+| SDK 输出计数 | 155 token | 对答案 JSON 重新编码得到，不是逐 token 生成的诊断文章，也不是云端账单 |
+| 查询墙钟时间 | 1189.8 ms | 模型加载完成后的这一次查询，不含首次模型下载和会话初始化 |
+| 模型内部阶段 | state 484.5 ms；branch 693.6 ms | 原始阶段耗时，不是 GPU 专属计时 |
+| WebGPU 命令 | 1160 次 dispatch；131 次 submit | 本次查询观察到的命令数，不能换算为显存、电量或金额 |
+
+这个架构**不调用按次收费的云推理 API**，但不能因此把一次 query 的总成本写成“0 元”：本机电力、硬件成本、峰值显存及实际传输字节均未在这份导出中测量。首次公共模型加载与站点资源流量单独发生，不能把模型清单大小当作本次 query 的网络实测，也不能用下载大小推算运行内存。记录里的时间是导出时间，文件另附运行版本与原始导出摘要，方便追溯。
+
 ## 已有实测怎样理解
 
 这些是 2026-10-11 的历史设备记录，不代表访问者当前设备的速度或新一轮模型结果。
+
+![单次查询成本与首次下载开销分开展示](docs/images/query-cost.png)
 
 | 项目 | 结果 |
 | --- | --- |
