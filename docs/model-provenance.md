@@ -2,6 +2,8 @@
 
 Recorded 2026-10-10. The source of truth is [`src/runtime/model-lock.json`](../src/runtime/model-lock.json), not a moving model name. `package-lock.json` fixes the installed JavaScript dependency tree. No model weights are committed or included in the Pages build.
 
+Local update, 2026-10-11: all 33 pinned files were downloaded, byte-counted and SHA-256 verified by the production reader on the Mac. Real inference results are recorded in [the public verification summary](verification.md). The earlier cloud-only verification boundary below is retained as history.
+
 | Component | Fixed identity |
 |---|---|
 | Source model | `jaredpalmer/kev-0.8b` |
@@ -18,7 +20,7 @@ Recorded 2026-10-10. The source of truth is [`src/runtime/model-lock.json`](../s
 | Manifest-reported temperature | `2.3510958125672174` |
 | Locked bundle total | 826,680,926 bytes across 33 files, including manifest, tokenizer and head |
 | Domain pack | `dpc-powerstore-iscsi-1.0.0` |
-| Application commit | Must be captured from `git rev-parse HEAD` for each actual run; this implementation has no GPU run commit to claim |
+| Application commit | Source import `a008e3d6d70fd5dbbe95f4546cf56ae5808ba52d`; the public [verification summary](verification.md) preserves historical dirty status and source-report digests; complete local patch/hashes remain in the offline records |
 
 The npm package's gitHead differs from the upstream GitHub `main` commit observed during research (`57a0f246efc42dfcd3e0acca294312f36af41b07`). The runtime identity uses the installed package, not that moving branch. The browser repository commit, internal bundle revision and original source checkpoint are three distinct identities.
 

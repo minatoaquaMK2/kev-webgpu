@@ -1,14 +1,16 @@
 {
-  "name": "kev-dpc-rca-demo",
+  "name": "kev-webgpu",
   "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview --host 0.0.0.0",
+    "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run",
     "test:browser": "playwright test",
+    "test:browser:local": "playwright test --config=playwright.local.config.ts",
+    "test:gpu:local": "node scripts/validate-local-browser.mjs",
     "check": "npm test && npm run build"
   },
   "dependencies": {

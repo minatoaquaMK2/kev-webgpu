@@ -5,6 +5,7 @@ import mjs from 'onnxruntime-web/ort-wasm-simd-threaded.asyncify.mjs?url';
 import { loadKev, toRecord, validate, ContextOverflow, type Kev, type OrtModule } from '@ai-ecoverse/kev.js';
 import type { InferenceSession } from 'onnxruntime-common';
 import { inspectDevice } from '../runtime/device';
+import { observeGpuCommands } from '../runtime/gpu-observer';
 import { createVerifiedReader, clearModelCache, MODEL_LOCK as lock } from '../runtime/verified-reader';
 import { RuntimeError, type WorkerCommand, type WorkerMessage, type RuntimeEvent, type RuntimeErrorCode, type TokenUsage, type AnalysisResult, type SystemOneRequest, type GpuProof } from '../runtime/protocol';
 
@@ -22,15 +23,22 @@ let deviceLost = false;
 let gpuTensorOutputs = 0;
 let kernelCount = 0;
 const kernelTypes = new Set<string>();
+const gpuCommands = observeGpuCommands();
+// Opt-in development diagnostics for ORT's native WebGPU EP. Its C++
+// session profile includes node/provider assignments that JSEP callbacks omit.
+const nativeProfiling = import.meta.env.DEV && import.meta.env.VITE_KEV_NATIVE_PROFILE === '1';
+let finishNativeProfile: (() => void) | undefined;
 let rawProbabilities: number[][] | undefined;
 const post = (m: WorkerMessage) => self.postMessage(m);
 const emit = (m: RuntimeEvent) => post(m);
 const provenance = (): AnalysisResult['provenance'] => ({checkpoint:lock.checkpoint,bundleCommit:lock.bundleCommit,bundleRevision:lock.bundleRevision,variant:'q8',runtimeCommit:lock.runtimeCommit,runtimeVersion:lock.runtimeVersion,ortVersion:lock.ortVersion,temperature:kev?.temperature ?? lock.temperature});
-const resetProof = () => { gpuTensorOutputs = 0; kernelCount = 0; kernelTypes.clear(); };
+const resetProof = () => { gpuTensorOutputs = 0; kernelCount = 0; kernelTypes.clear(); gpuCommands.reset(); };
 function proof(): GpuProof {
   const types = [...kernelTypes].sort();
-  const largeComputeObserved = types.some(t => /matmul|gemm|attention/i.test(t));
-  return {executionProviders:['webgpu'],gpuTensorOutputs,kernelCount,kernelTypes:types,largeComputeObserved,verification:largeComputeObserved ? 'gpu_backbone_observed' : gpuTensorOutputs > 0 ? 'gpu_outputs_observed_profiling_unavailable' : 'not_verified'};
+  const commands = gpuCommands.snapshot();
+  const largeComputeObserved = types.some(t => /matmul|gemm|attention/i.test(t)) ||
+    (commands.dispatches > 0 && commands.submissions > 0 && commands.pipelineLabels.some(t => /matmul|gemm|attention/i.test(t)));
+  return {executionProviders:['webgpu'],gpuTensorOutputs,kernelCount,kernelTypes:types,commands,largeComputeObserved,verification:largeComputeObserved ? 'gpu_backbone_observed' : gpuTensorOutputs > 0 ? 'gpu_outputs_observed_profiling_unavailable' : 'not_verified'};
 }
 function checkedRequest(input: unknown): SystemOneRequest {
   const req = validate(input);
@@ -64,8 +72,12 @@ async function load() {
   if (!report.available || !adapter) throw new RuntimeError(report.code ?? 'webgpu_unavailable',report.message);
   if (ort.env.versions.web !== lock.ortVersion) throw new RuntimeError('model_unavailable',`ORT identity mismatch: expected ${lock.ortVersion}.`);
   ort.env.webgpu.adapter = adapter;
-  ort.env.webgpu.profiling.mode = adapter.features.has('timestamp-query') ? 'default' : 'off';
-  ort.env.webgpu.profiling.ondata = (data) => { kernelCount++; kernelTypes.add(data.kernelType); kernelTypes.add(data.programName); };
+  // ORT 1.30 starts with an empty webgpu configuration at runtime, despite
+  // declaring profiling as required in its TypeScript interface.
+  ort.env.webgpu.profiling = {
+    mode: adapter.features.has('timestamp-query') ? 'default' : 'off',
+    ondata: (data) => { kernelCount++; kernelTypes.add(data.kernelType); kernelTypes.add(data.programName); },
+  };
   if (!adapter.features.has('timestamp-query')) emit({type:'warning',code:'profiling_unavailable',message:'GPU timestamps are unavailable; execution-provider logs and GPU output checks will be recorded, but full GPU-kernel verification may remain incomplete.'});
   deviceLost = false;
   controller = new AbortController();
@@ -79,6 +91,7 @@ async function load() {
       signal.throwIfAborted();
       const sessionStarted = performance.now();
       const session = await ort.InferenceSession.create(model as Uint8Array<ArrayBuffer>,options);
+      if (nativeProfiling) finishNativeProfile = () => session.endProfiling();
       sessionCreationMs += performance.now() - sessionStarted;
       if (signal.aborted) { await session.release(); signal.throwIfAborted(); }
       // Instrument only output locations; never alter tensors, probabilities or provider assignment.
@@ -98,7 +111,7 @@ async function load() {
       ort:instrumentedOrt,variant:'q8',vision:false,executionProviders:['webgpu'],
       stateCacheSize:0,maxState:1024,maxBranch:1536,truncateStates:false,dateFacts:false,concurrency:2,
       onPhase:phase => emit({type:'phase',phase}),
-      sessionOptions:{logSeverityLevel:1,logVerbosityLevel:0},
+      sessionOptions:{logSeverityLevel:nativeProfiling ? 1 : 2,logVerbosityLevel:0,enableProfiling:nativeProfiling},
     });
     if (epoch !== generation || signal.aborted) { await loaded.release(); loaded = undefined; throw new RuntimeError('cancelled','Loading was cancelled before the session became ready.'); }
     if (loaded.variant !== 'q8' || loaded.acceptsImages || loaded.manifest.revision !== lock.bundleRevision || loaded.manifest.run !== `${lock.model}@${lock.checkpoint}` || loaded.manifest.variants.q8.io_dtype !== 'float16') throw new RuntimeError('integrity_failed','Loaded model identity does not match the pinned q8-only lock.');
@@ -121,7 +134,7 @@ async function load() {
   } catch(error) {
     controller?.abort();
     if (loaded) await loaded.release().catch(() => {});
-    kev = undefined; throw error;
+    kev = undefined; finishNativeProfile = undefined; throw error;
   } finally { controller = undefined; }
 }
 async function analyze(input: SystemOneRequest,evidenceHash:string): Promise<AnalysisResult> {
@@ -134,6 +147,7 @@ async function analyze(input: SystemOneRequest,evidenceHash:string): Promise<Ana
   emit({type:'status',status:'running',message:'Running one real Kev question locally.'});
   const start = performance.now();
   const response = await kev.systemOne(req);
+  if (finishNativeProfile) { const finish = finishNativeProfile; finishNativeProfile = undefined; finish(); }
   // Profiling mapAsync callbacks may lag session.run. Drain submitted work before
   // snapshotting kernel evidence; this does not submit another inference.
   const usedDevice = await ort.env.webgpu.device;
@@ -158,7 +172,7 @@ async function run(command: WorkerCommand) {
   if (command.type === 'unload') {
     if (unloading) throw new RuntimeError('busy','Model unload is already in progress.');
     unloading = true; generation++; controller?.abort();
-    try { await active?.catch(() => {}); await kev?.release(); kev = undefined; emit({type:'status',status:'unloaded',message:'Session released and application references cleared; driver memory release timing is not guaranteed.'}); }
+    try { await active?.catch(() => {}); await kev?.release(); kev = undefined; finishNativeProfile = undefined; emit({type:'status',status:'unloaded',message:'Session released and application references cleared; driver memory release timing is not guaranteed.'}); }
     finally { unloading = false; }
     return;
   }

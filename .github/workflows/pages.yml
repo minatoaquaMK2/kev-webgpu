@@ -1,48 +1,81 @@
-name: Publish static Pages (manual)
+name: Publish kev-webgpu
+
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
-  pages: write
-  id-token: write
+
 concurrency:
-  group: pages
+  group: github-pages
   cancel-in-progress: false
+
+env:
+  PAGES_BASE: /kev-webgpu/
+  APP_REVISION: ${{ github.sha }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: read
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '24'
           cache: npm
       - run: npm ci
       - run: npm test
-      - uses: actions/configure-pages@v5
-        id: pages
-      - name: Build static site with Pages base path
+      - name: Build introduction and real inference demo
         run: npm run build
-        env:
-          PAGES_BASE: ${{ steps.pages.outputs.base_path }}/
-      - name: Reject bundled model weights
-        shell: bash
+      - name: Check static publication boundary
+        shell: python
         run: |
-          if find dist -type f \( -name '*.onnx' -o -name '*.onnx.data*' -o -name '*.safetensors' \) | grep -q .; then exit 1; fi
-          test "$(du -sb dist | cut -f1)" -lt 1000000000
-      - uses: actions/upload-pages-artifact@v3
+          from pathlib import Path
+          root = Path('dist')
+          for entry in ('index.html', 'demo/index.html'):
+              assert (root / entry).is_file(), f'Missing site entry: {entry}'
+          size = 0
+          for path in root.rglob('*'):
+              assert not path.is_symlink(), f'Symlink is not publishable: {path}'
+              if not path.is_file():
+                  continue
+              name = path.name.lower()
+              assert not (name.endswith(('.onnx', '.safetensors', '.bundle', '.zip')) or '.onnx.data' in name), f'Unexpected model/archive artifact: {path}'
+              assert not path.relative_to(root).as_posix().startswith(('tests/', 'results/')), f'Development-only artifact: {path}'
+              size += path.stat().st_size
+          assert 0 < size < 1_000_000_000, f'Invalid Pages artifact size: {size}'
+          print(f'Static artifact checked: {size:,} bytes; no bundled model weights')
+      - name: Read Pages configuration
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - name: Upload site
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: dist
   deploy:
     needs: build
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy Pages artifact
         id: deployment
-        uses: actions/deploy-pages@v4
-# This workflow is provided but has not been dispatched by the implementation.
-# Repository owners should configure environment protection before authorizing it.
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+# Hosted CI verifies source and static output. It does not claim real GPU,
+# numerical parity, RCA accuracy, offline inference, or Pages-origin CORS results.

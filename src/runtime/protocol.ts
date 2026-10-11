@@ -8,7 +8,7 @@ export interface DeviceReport {
   features?: string[]; limits?: Record<string, number>;
 }
 export interface TokenUsage { stateTokens: number; branchTokens: number[]; totalTokens: number }
-export interface GpuProof { executionProviders: ['webgpu']; gpuTensorOutputs: number; kernelCount: number; kernelTypes: string[]; largeComputeObserved: boolean; verification: 'gpu_backbone_observed' | 'gpu_outputs_observed_profiling_unavailable' | 'not_verified' }
+export interface GpuProof { executionProviders: ['webgpu']; gpuTensorOutputs: number; kernelCount: number; kernelTypes: string[]; commands?: { available: boolean; dispatches: number; submissions: number; pipelineLabels: string[]; method: 'public-WebGPU-command-observation' }; largeComputeObserved: boolean; verification: 'gpu_backbone_observed' | 'gpu_outputs_observed_profiling_unavailable' | 'not_verified' }
 export interface AnalysisResult {
   response: SystemOneResponse; evidenceHash: string; usage: TokenUsage; wallMs: number;
   timing: { preprocess: number; vision: number; state: number; branches: number; cached: boolean; imageTokens: number };

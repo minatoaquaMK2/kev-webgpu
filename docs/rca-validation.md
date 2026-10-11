@@ -2,7 +2,9 @@
 
 ## Current result
 
-**RCA semantic validation is not verified.** No real-model inference was performed here. There are no measured model predictions, domain accuracy figures, parity results or latency percentiles to report. Ordinary unit tests use synthetic values to test accounting and rules; those are not model results.
+**RCA semantic validation FAILED on the local Mac.** The 2026-10-11 real q8 run completed 34/34 synthetic inputs, with 8/34 accepted top-1 labels and 0/9 correct abstention cases. Case-01 C (MTU) and case-03 (write protection) both incorrectly selected `host_volume_mapping_gap`; case-02 correctly selected that mapping label. The original predictions and all failures are retained in [the complete 34-case probability summary](../public/guide-validation.json). No prompt, model or rule-based answer substitution was used to improve this score. See [hardware, performance and acceptance details](verification.md).
+
+The separate [upstream diagnostic summary](verification.md) passed 49/49 numerical checks and exact encoding comparisons, with no argmax flips. Full formal parity remains `not_verified`: upstream generation metadata is incomplete and no independently executed native reference is available. Ordinary unit tests check accounting and rules; they are not model results.
 
 A semantic failure on case-01 C, case-02 or case-03 must stay visible in this document and the README after a future run. Never substitute a rule answer, retune tolerances after observing results, switch precision/model, or silently delete a failed case.
 
@@ -64,4 +66,4 @@ The report separates top-1 results, insufficient/conflicting-case abstention, th
 
 Performance uses at least three warm-ups excluded from the measured summary and 30 recorded calls, alternating short, near-budget (at least 90% of 1,024 state tokens) and uniquely edited states. Actual production encoding is used to establish budgets; nothing is silently truncated. Report P50/P95 by the nearest-rank definition, per-category sample counts, every sample, load time and actual hardware. If a valid near-budget input cannot be formed, that performance section is explicitly not-run.
 
-The runtime measures actual ORT session-creation wall time separately from total load time. Both fields and file/progress phase logs are retained. A download/cached-load comparison must preserve cache-hit records; neither timing is a GPU-memory measurement. No values are available until a real load succeeds. Peak VRAM and process RAM are unavailable without a separate reliable measurement. File bytes, RAM, buffers and VRAM must never be conflated.
+The runtime measures actual ORT session-creation wall time separately from total load time. Both fields and file/progress phase logs are retained. The local reports include successful cold and cached loads; neither timing is a GPU-memory measurement. Peak VRAM remains unavailable. Any process RSS observation must be reported with its method and must not be conflated with private process RAM, file bytes or GPU memory.

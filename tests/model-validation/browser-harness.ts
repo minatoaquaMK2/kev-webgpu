@@ -233,4 +233,7 @@ document.querySelector<HTMLInputElement>('#reference')!.addEventListener('change
 Object.assign(window, { kevValidation: { probe: () => client.probe(), load: async () => { const start = performance.now(); const result = await client.load(); loaded = true; loads.push({ load: result, observedWallMs: performance.now() - start, events: [...events], sessionCreationMs: result.sessionCreationMs }); return result; }, run,
   cancel: () => { cancelled = true; return client.cancel(); }, unload: async () => { await client.unload(); loaded = false; },
   setReference: (value: unknown) => { validateReference(value); fixture = value; }, getReport: () => latest,
+  // Development-only primitive for independent upstream fixture diagnostics.
+  // The same production Worker checks the request and runs the pinned q8 model.
+  analyzeRequest: (req: SystemOneRequest) => analyze(req),
   serializeRequest, requestDigest: digest } });

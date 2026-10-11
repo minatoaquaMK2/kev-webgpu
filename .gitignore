@@ -1,10 +1,29 @@
+# Dependencies, generated builds and browser-test output.
 node_modules/
 dist/
+dist-subpath/
 playwright-report/
 test-results/
 *.zip
-results/*-final.log
-results/unit-tests-final.json
+*.bundle
 BUILD_INFO.json
 
-*.bundle
+# Machine-local sessions, caches and handoff records.
+.local-browser-profile*/
+.local-*-profile/
+.model-audit-cache/
+.npm-cache/
+.DS_Store
+/LOCAL_HANDOFF.md
+/docs/local-mac-validation.md
+/docs/semantic-diagnostics.md
+
+# Keep new raw runs, console/profile logs and screenshots local.
+# The small original tracked audit reports remain public; publish reviewed
+# teaching data under public/guide-validation.json instead of raw local output.
+/results/*
+!/results/cloud-gpu-probe.json
+!/results/encoder-budget-results.json
+!/results/encoder-variant-budget-results.json
+!/results/graph-audit.json
+!/results/npm-audit.json

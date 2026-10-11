@@ -10,11 +10,11 @@ try {
     revision += "-dirty";
 } catch {}
 export default defineConfig({
-  base: process.env.PAGES_BASE || "./",
+  base: process.env.PAGES_BASE || "/",
   define: {
     __APP_REVISION__: JSON.stringify(process.env.APP_REVISION || revision),
   },
   worker: { format: "es" },
-  build: { target: "es2022" },
+  build: { target: "es2022", rollupOptions: { input: { guide: "index.html", demo: "demo/index.html" } } },
   test: { include: ["tests/**/*.test.ts"] },
 });

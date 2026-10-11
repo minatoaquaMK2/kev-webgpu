@@ -1,0 +1,808 @@
+{
+  "schemaVersion": "1.0",
+  "recordedAt": "2026-10-11T01:29:00.654Z",
+  "sourceCommit": "a008e3d6d70fd5dbbe95f4546cf56ae5808ba52d-dirty",
+  "sourceNote": "Historical local validation of the uncommitted working tree based on this source commit; not a measurement of the current viewer device or the published-site revision.",
+  "hardware": "MacBook Air Mac15,13; Apple M3 10-core GPU; 24 GB unified RAM",
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+  "os": "ProductName:\t\tmacOS ProductVersion:\t\t27.0.1 BuildVersion:\t\t26A434",
+  "historicalReplay": true,
+  "model": {
+    "model": "jaredpalmer/kev-0.8b",
+    "checkpoint": "9a45d25eb2ab761841196625383fa1dff0e56c1e",
+    "variant": "q8",
+    "runtimePackage": "@ai-ecoverse/kev.js",
+    "runtimeVersion": "1.0.0",
+    "runtimeCommit": "ca072e49e65b716af478db8f464e1fac8a0f4ad5",
+    "ortVersion": "1.30.0",
+    "temperature": 2.3510958125672174
+  },
+  "domain": {
+    "dataset": "synthetic-development-set-not-independent-holdout",
+    "top1": {
+      "correct": 8,
+      "completed": 34,
+      "planned": 34,
+      "accuracy": 0.23529411764705882
+    },
+    "abstention": {
+      "correct": 0,
+      "total": 9
+    }
+  },
+  "performance": {
+    "warmupCount": 3,
+    "summary": {
+      "sampleCount": 30,
+      "p50Ms": 401.5,
+      "p95Ms": 960.5,
+      "minMs": 376,
+      "maxMs": 963.4000000059605,
+      "meanMs": 578.0966666658719,
+      "percentileMethod": "nearest-rank",
+      "samplesMs": [
+        385.59999999403954,
+        954,
+        405,
+        379.29999999701977,
+        936.9000000059605,
+        400.09999999403954,
+        395.70000000298023,
+        947.7999999970198,
+        403.59999999403954,
+        380.40000000596046,
+        951.3999999910593,
+        408.29999999701977,
+        380.5,
+        949,
+        401.40000000596046,
+        376,
+        932,
+        407,
+        382.90000000596046,
+        944.7999999970198,
+        398.5,
+        381.3999999910593,
+        963.4000000059605,
+        407,
+        381.90000000596046,
+        948.7999999970198,
+        399.09999999403954,
+        379.09999999403954,
+        960.5,
+        401.5
+      ]
+    }
+  },
+  "upstream": {
+    "recordedAt": "2026-10-11T01:27:43.062Z",
+    "summary": {
+      "questionChecks": 49,
+      "optionChecks": 149,
+      "passedChecks": 49,
+      "maxAbsoluteError": 0.018670125214019007,
+      "meanAbsoluteError": 0.0034506768282776506,
+      "argmaxFlips": 0,
+      "failedChecks": [],
+      "reorderedChecks": 8,
+      "reorderedTop1Changes": 1,
+      "formalParity": "not_verified: upstream fixture does not record PyTorch version or generation timestamp; no independent native q8 reference executed"
+    },
+    "reference": {
+      "sourceUrl": "https://raw.githubusercontent.com/ai-ecoverse/kev.js/ca072e49e65b716af478db8f464e1fac8a0f4ad5/fixtures/kev-0.8b.json",
+      "sourceSha256": "23c3f0cc85fbe60896c5aff83f4d6b2df837e22d6f569e8e8e47a130efbd70d4",
+      "sourceRun": "jaredpalmer/kev-0.8b@9a45d25eb2ab761841196625383fa1dff0e56c1e",
+      "referenceEngine": "PyTorch CPU float32 merged checkpoint; upstream-provided",
+      "referenceEngineVersion": "not_recorded_in_upstream_fixture",
+      "generatedAt": "not_recorded_in_upstream_fixture",
+      "sourceTemperature": 1,
+      "servingTemperature": 2.3510958125672174
+    }
+  },
+  "nativeGpuProof": {
+    "method": "ORT 1.30 native session profiling, enableProfiling and endProfiling after first question; separate diagnostic run",
+    "largeGpuNodeRecords": 840,
+    "nodeRecords": 2884,
+    "gpuBackboneObserved": true,
+    "allGpu": false,
+    "note": "Separate native ORT profiling recorded 840 MatMulNBits, MatMul, LinearAttention and GroupQueryAttention node events on WebGpuExecutionProvider. CPU shape, control and embedding-related work also occurred; this is not an all-GPU execution claim or peak-VRAM measurement."
+  },
+  "sourceReports": {
+    "domain": {
+      "file": "local-real-model-final.json",
+      "sha256": "47acd0c3c5a80b08c8da7abe7341fd8c36cecdcb77a2b7fa1e0dcd38bc67cdc7"
+    },
+    "upstream": {
+      "file": "upstream-model-diagnostics.json",
+      "sha256": "9e4cc4ac7807f8c0f4ad1e7ae56ce37fc743b1d28ea4b0ab40e729f44f2d1238"
+    },
+    "nativeGpu": {
+      "file": "local-native-profile-summary.json",
+      "sha256": "3bfb43877a397e8498556d01e2e41bf691c0295cd2d1f276230659736e4e627f"
+    }
+  },
+  "cases": [
+    {
+      "id": "case-01-A",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "insufficient_evidence"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.08670494073321229,
+        "storage_network_connectivity_loss": 0.10877442981174304,
+        "host_volume_mapping_gap": 0.23251632610464232,
+        "powerstore_capacity_write_protect": 0.051626883843726844,
+        "powerstore_node_or_component_fault": 0.05082629594436151,
+        "other_or_multiple_causes": 0.20297934319751249,
+        "insufficient_evidence": 0.19795096474593638,
+        "no_active_incident": 0.06862081561886511
+      },
+      "wallMs": 465,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "case-01-B",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "storage_network_mtu_mismatch"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.11423131664355275,
+        "storage_network_connectivity_loss": 0.13193409611445403,
+        "host_volume_mapping_gap": 0.3241108589601091,
+        "powerstore_capacity_write_protect": 0.029659581038276112,
+        "powerstore_node_or_component_fault": 0.04443285997693214,
+        "other_or_multiple_causes": 0.16027169694975957,
+        "insufficient_evidence": 0.1568911396372119,
+        "no_active_incident": 0.03846845067970431
+      },
+      "wallMs": 665.3999999910593,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "case-01-C",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "storage_network_mtu_mismatch"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.22732998713991429,
+        "storage_network_connectivity_loss": 0.09047871701552902,
+        "host_volume_mapping_gap": 0.329852387087718,
+        "powerstore_capacity_write_protect": 0.023031893526899286,
+        "powerstore_node_or_component_fault": 0.03467101874997669,
+        "other_or_multiple_causes": 0.13423723406200794,
+        "insufficient_evidence": 0.1298238249129868,
+        "no_active_incident": 0.030574937504968
+      },
+      "wallMs": 799,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "case-02",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "host_volume_mapping_gap"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.06576992160174995,
+        "storage_network_connectivity_loss": 0.13781024660513,
+        "host_volume_mapping_gap": 0.4462445737089404,
+        "powerstore_capacity_write_protect": 0.024292538827594492,
+        "powerstore_node_or_component_fault": 0.031338381973642866,
+        "other_or_multiple_causes": 0.12837570690950256,
+        "insufficient_evidence": 0.13037480685281921,
+        "no_active_incident": 0.03579382352062064
+      },
+      "wallMs": 678.7999999970198,
+      "status": "completed",
+      "correct": true
+    },
+    {
+      "id": "case-03",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "powerstore_capacity_write_protect"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.07329128070376513,
+        "storage_network_connectivity_loss": 0.07162819632349131,
+        "host_volume_mapping_gap": 0.23324631557898495,
+        "powerstore_capacity_write_protect": 0.16088575289180387,
+        "powerstore_node_or_component_fault": 0.053666591489722235,
+        "other_or_multiple_causes": 0.17952221301739069,
+        "insufficient_evidence": 0.18159755822365287,
+        "no_active_incident": 0.046162091771188955
+      },
+      "wallMs": 652.2000000029802,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "case-04",
+      "selected": "storage_network_connectivity_loss",
+      "expected": [
+        "storage_network_connectivity_loss"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.062383696499262814,
+        "storage_network_connectivity_loss": 0.3747196681314865,
+        "host_volume_mapping_gap": 0.2288050659867067,
+        "powerstore_capacity_write_protect": 0.014334629654053061,
+        "powerstore_node_or_component_fault": 0.043183801328072285,
+        "other_or_multiple_causes": 0.1250644592847303,
+        "insufficient_evidence": 0.1214506077516567,
+        "no_active_incident": 0.030058071364031453
+      },
+      "wallMs": 640.7000000029802,
+      "status": "completed",
+      "correct": true
+    },
+    {
+      "id": "case-05",
+      "selected": "insufficient_evidence",
+      "expected": [
+        "no_active_incident"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.0944052022305045,
+        "storage_network_connectivity_loss": 0.08618093410273757,
+        "host_volume_mapping_gap": 0.14354044544673958,
+        "powerstore_capacity_write_protect": 0.06997057623696326,
+        "powerstore_node_or_component_fault": 0.05537187805504614,
+        "other_or_multiple_causes": 0.19254992125123999,
+        "insufficient_evidence": 0.19685632805053177,
+        "no_active_incident": 0.16112471462623706
+      },
+      "wallMs": 636.5,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "case-06",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "insufficient_evidence"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.11489408167628141,
+        "storage_network_connectivity_loss": 0.11686917236289479,
+        "host_volume_mapping_gap": 0.24940493948086803,
+        "powerstore_capacity_write_protect": 0.03279896365440358,
+        "powerstore_node_or_component_fault": 0.04030286903535897,
+        "other_or_multiple_causes": 0.19129690497381552,
+        "insufficient_evidence": 0.18864475292826446,
+        "no_active_incident": 0.06578831588811326
+      },
+      "wallMs": 385.70000000298023,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "case-07",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "storage_network_mtu_mismatch"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.17021381286080334,
+        "storage_network_connectivity_loss": 0.12950378895982054,
+        "host_volume_mapping_gap": 0.2690795523353975,
+        "powerstore_capacity_write_protect": 0.02778538513135697,
+        "powerstore_node_or_component_fault": 0.08102985415293198,
+        "other_or_multiple_causes": 0.13894242156844444,
+        "insufficient_evidence": 0.13977514510207048,
+        "no_active_incident": 0.04367003988917467
+      },
+      "wallMs": 847.0999999940395,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "case-08",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "other_or_multiple_causes",
+        "insufficient_evidence"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.234563044216302,
+        "storage_network_connectivity_loss": 0.1300010177121804,
+        "host_volume_mapping_gap": 0.3196194292265475,
+        "powerstore_capacity_write_protect": 0.014299052079810377,
+        "powerstore_node_or_component_fault": 0.030627395282163353,
+        "other_or_multiple_causes": 0.1222686169642177,
+        "insufficient_evidence": 0.12191798642640657,
+        "no_active_incident": 0.026703458092372154
+      },
+      "wallMs": 893.6000000089407,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-01",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "storage_network_mtu_mismatch"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.17663832661380413,
+        "storage_network_connectivity_loss": 0.0814012856670292,
+        "host_volume_mapping_gap": 0.3824488577577228,
+        "powerstore_capacity_write_protect": 0.02903702344955168,
+        "powerstore_node_or_component_fault": 0.03295110973893995,
+        "other_or_multiple_causes": 0.13752021322218574,
+        "insufficient_evidence": 0.1275141064505304,
+        "no_active_incident": 0.03248907710023626
+      },
+      "wallMs": 796.9000000059605,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-02",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "host_volume_mapping_gap"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.07842772274293787,
+        "storage_network_connectivity_loss": 0.12230180090064599,
+        "host_volume_mapping_gap": 0.4426173928919821,
+        "powerstore_capacity_write_protect": 0.030538934487051753,
+        "powerstore_node_or_component_fault": 0.03187052947983196,
+        "other_or_multiple_causes": 0.13046889629416175,
+        "insufficient_evidence": 0.126090727299882,
+        "no_active_incident": 0.037683995903506635
+      },
+      "wallMs": 671.3999999910593,
+      "status": "completed",
+      "correct": true
+    },
+    {
+      "id": "variant-03",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "powerstore_capacity_write_protect"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.06037077366463193,
+        "storage_network_connectivity_loss": 0.06224888549866795,
+        "host_volume_mapping_gap": 0.24158243885022326,
+        "powerstore_capacity_write_protect": 0.21028053961557178,
+        "powerstore_node_or_component_fault": 0.04778240828883322,
+        "other_or_multiple_causes": 0.17301213370633145,
+        "insufficient_evidence": 0.16320049427936045,
+        "no_active_incident": 0.04152232609638005
+      },
+      "wallMs": 640.2000000029802,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-04",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "storage_network_connectivity_loss"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.06743168794803285,
+        "storage_network_connectivity_loss": 0.2910475059356835,
+        "host_volume_mapping_gap": 0.30242648395850424,
+        "powerstore_capacity_write_protect": 0.01903759278097713,
+        "powerstore_node_or_component_fault": 0.041332422321945075,
+        "other_or_multiple_causes": 0.1268609229037937,
+        "insufficient_evidence": 0.1192691130530433,
+        "no_active_incident": 0.032594271098020294
+      },
+      "wallMs": 631.7999999970198,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-05",
+      "selected": "other_or_multiple_causes",
+      "expected": [
+        "no_active_incident"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.0963435771814751,
+        "storage_network_connectivity_loss": 0.08288877431692239,
+        "host_volume_mapping_gap": 0.15692137282958465,
+        "powerstore_capacity_write_protect": 0.07447242769210848,
+        "powerstore_node_or_component_fault": 0.05313740369920394,
+        "other_or_multiple_causes": 0.19674347423569363,
+        "insufficient_evidence": 0.19280944659338647,
+        "no_active_incident": 0.1466835234516254
+      },
+      "wallMs": 615.0999999940395,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-06",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "insufficient_evidence"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.11324406508187644,
+        "storage_network_connectivity_loss": 0.11886600119141984,
+        "host_volume_mapping_gap": 0.24352724646926457,
+        "powerstore_capacity_write_protect": 0.030854876748596397,
+        "powerstore_node_or_component_fault": 0.040142343467171174,
+        "other_or_multiple_causes": 0.19356107499946207,
+        "insufficient_evidence": 0.19370362909184086,
+        "no_active_incident": 0.0661007629503686
+      },
+      "wallMs": 382.59999999403954,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-07",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "storage_network_mtu_mismatch"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.1383079669887562,
+        "storage_network_connectivity_loss": 0.11404165709242668,
+        "host_volume_mapping_gap": 0.3289898565005006,
+        "powerstore_capacity_write_protect": 0.03418203337568926,
+        "powerstore_node_or_component_fault": 0.06184257258150793,
+        "other_or_multiple_causes": 0.14267771152674086,
+        "insufficient_evidence": 0.13573021823176296,
+        "no_active_incident": 0.044227983702615443
+      },
+      "wallMs": 848.7999999970198,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-08",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "other_or_multiple_causes",
+        "insufficient_evidence"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.1656068552795603,
+        "storage_network_connectivity_loss": 0.123641219483795,
+        "host_volume_mapping_gap": 0.40611531913585897,
+        "powerstore_capacity_write_protect": 0.016425023637221484,
+        "powerstore_node_or_component_fault": 0.025446270818070743,
+        "other_or_multiple_causes": 0.12067222290429933,
+        "insufficient_evidence": 0.11584336807123778,
+        "no_active_incident": 0.02624972066995655
+      },
+      "wallMs": 887.8999999910593,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-09",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "storage_network_mtu_mismatch"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.22732998713991429,
+        "storage_network_connectivity_loss": 0.09047871701552902,
+        "host_volume_mapping_gap": 0.329852387087718,
+        "powerstore_capacity_write_protect": 0.023031893526899286,
+        "powerstore_node_or_component_fault": 0.03467101874997669,
+        "other_or_multiple_causes": 0.13423723406200794,
+        "insufficient_evidence": 0.1298238249129868,
+        "no_active_incident": 0.030574937504968
+      },
+      "wallMs": 798.2000000029802,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-10",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "host_volume_mapping_gap"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.06576992160174995,
+        "storage_network_connectivity_loss": 0.13781024660513,
+        "host_volume_mapping_gap": 0.4462445737089404,
+        "powerstore_capacity_write_protect": 0.024292538827594492,
+        "powerstore_node_or_component_fault": 0.031338381973642866,
+        "other_or_multiple_causes": 0.12837570690950256,
+        "insufficient_evidence": 0.13037480685281921,
+        "no_active_incident": 0.03579382352062064
+      },
+      "wallMs": 675.5,
+      "status": "completed",
+      "correct": true
+    },
+    {
+      "id": "variant-11",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "powerstore_capacity_write_protect"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.07329128070376513,
+        "storage_network_connectivity_loss": 0.07162819632349131,
+        "host_volume_mapping_gap": 0.23324631557898495,
+        "powerstore_capacity_write_protect": 0.16088575289180387,
+        "powerstore_node_or_component_fault": 0.053666591489722235,
+        "other_or_multiple_causes": 0.17952221301739069,
+        "insufficient_evidence": 0.18159755822365287,
+        "no_active_incident": 0.046162091771188955
+      },
+      "wallMs": 651.4000000059605,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-12",
+      "selected": "storage_network_connectivity_loss",
+      "expected": [
+        "storage_network_connectivity_loss"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.062383696499262814,
+        "storage_network_connectivity_loss": 0.3747196681314865,
+        "host_volume_mapping_gap": 0.2288050659867067,
+        "powerstore_capacity_write_protect": 0.014334629654053061,
+        "powerstore_node_or_component_fault": 0.043183801328072285,
+        "other_or_multiple_causes": 0.1250644592847303,
+        "insufficient_evidence": 0.1214506077516567,
+        "no_active_incident": 0.030058071364031453
+      },
+      "wallMs": 637.0999999940395,
+      "status": "completed",
+      "correct": true
+    },
+    {
+      "id": "variant-13",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "storage_network_mtu_mismatch"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.22009748784029956,
+        "storage_network_connectivity_loss": 0.07340917104803671,
+        "host_volume_mapping_gap": 0.3436143888895491,
+        "powerstore_capacity_write_protect": 0.023021392848423024,
+        "powerstore_node_or_component_fault": 0.029100955166297373,
+        "other_or_multiple_causes": 0.1420506354874429,
+        "insufficient_evidence": 0.13674916263116813,
+        "no_active_incident": 0.03195680608878325
+      },
+      "wallMs": 796.4000000059605,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-14",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "host_volume_mapping_gap"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.06418589076661226,
+        "storage_network_connectivity_loss": 0.13450020442936902,
+        "host_volume_mapping_gap": 0.45450202369007775,
+        "powerstore_capacity_write_protect": 0.022723169420783007,
+        "powerstore_node_or_component_fault": 0.03089499749582045,
+        "other_or_multiple_causes": 0.12803061697195445,
+        "insufficient_evidence": 0.13080639416877665,
+        "no_active_incident": 0.03435670305660651
+      },
+      "wallMs": 671,
+      "status": "completed",
+      "correct": true
+    },
+    {
+      "id": "variant-15",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "powerstore_capacity_write_protect"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.06661387213575624,
+        "storage_network_connectivity_loss": 0.06493392326527274,
+        "host_volume_mapping_gap": 0.24203056668475742,
+        "powerstore_capacity_write_protect": 0.16535028513176378,
+        "powerstore_node_or_component_fault": 0.050808279016775454,
+        "other_or_multiple_causes": 0.18197529857710337,
+        "insufficient_evidence": 0.18371381641180806,
+        "no_active_incident": 0.04457395877676298
+      },
+      "wallMs": 646.5,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-16",
+      "selected": "storage_network_connectivity_loss",
+      "expected": [
+        "storage_network_connectivity_loss"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.062428824834686425,
+        "storage_network_connectivity_loss": 0.3728028253397118,
+        "host_volume_mapping_gap": 0.23043653932651803,
+        "powerstore_capacity_write_protect": 0.01540872897463274,
+        "powerstore_node_or_component_fault": 0.04204577004723094,
+        "other_or_multiple_causes": 0.124195091788088,
+        "insufficient_evidence": 0.12214987321115942,
+        "no_active_incident": 0.03053234647797284
+      },
+      "wallMs": 631.5,
+      "status": "completed",
+      "correct": true
+    },
+    {
+      "id": "variant-17",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "storage_network_mtu_mismatch"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.23102924080763068,
+        "storage_network_connectivity_loss": 0.09107281556154666,
+        "host_volume_mapping_gap": 0.32999857727218,
+        "powerstore_capacity_write_protect": 0.02256663574899515,
+        "powerstore_node_or_component_fault": 0.03418052582205606,
+        "other_or_multiple_causes": 0.13239002465690777,
+        "insufficient_evidence": 0.1287052952821942,
+        "no_active_incident": 0.030056884848489385
+      },
+      "wallMs": 800.1999999880791,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-18",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "storage_network_mtu_mismatch"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.11275576343681926,
+        "storage_network_connectivity_loss": 0.13048566831085945,
+        "host_volume_mapping_gap": 0.3280438964034718,
+        "powerstore_capacity_write_protect": 0.030187846524195396,
+        "powerstore_node_or_component_fault": 0.043848451232079325,
+        "other_or_multiple_causes": 0.1593074029427037,
+        "insufficient_evidence": 0.15691620943193127,
+        "no_active_incident": 0.03845476171793979
+      },
+      "wallMs": 687.2000000029802,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-19",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "insufficient_evidence"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.08670494073321229,
+        "storage_network_connectivity_loss": 0.10877442981174304,
+        "host_volume_mapping_gap": 0.23251632610464232,
+        "powerstore_capacity_write_protect": 0.051626883843726844,
+        "powerstore_node_or_component_fault": 0.05082629594436151,
+        "other_or_multiple_causes": 0.20297934319751249,
+        "insufficient_evidence": 0.19795096474593638,
+        "no_active_incident": 0.06862081561886511
+      },
+      "wallMs": 419.79999999701977,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-20",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "insufficient_evidence"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.07793315403014313,
+        "storage_network_connectivity_loss": 0.09638745029238902,
+        "host_volume_mapping_gap": 0.3124397972398287,
+        "powerstore_capacity_write_protect": 0.04620300574621102,
+        "powerstore_node_or_component_fault": 0.0457495643442895,
+        "other_or_multiple_causes": 0.17831635118668407,
+        "insufficient_evidence": 0.1760295801097068,
+        "no_active_incident": 0.06694109705074767
+      },
+      "wallMs": 380,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-21",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "insufficient_evidence"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.09547633077736897,
+        "storage_network_connectivity_loss": 0.13352716740946666,
+        "host_volume_mapping_gap": 0.33092309496481764,
+        "powerstore_capacity_write_protect": 0.028413365856051264,
+        "powerstore_node_or_component_fault": 0.04620668687118446,
+        "other_or_multiple_causes": 0.15767939148227272,
+        "insufficient_evidence": 0.16000924014196272,
+        "no_active_incident": 0.047764722496875425
+      },
+      "wallMs": 676.7000000029802,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-22",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "insufficient_evidence"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.07903235226183986,
+        "storage_network_connectivity_loss": 0.09129832607262091,
+        "host_volume_mapping_gap": 0.26594254310491344,
+        "powerstore_capacity_write_protect": 0.08855924180684102,
+        "powerstore_node_or_component_fault": 0.05418402799556349,
+        "other_or_multiple_causes": 0.17762090709628636,
+        "insufficient_evidence": 0.17859608698867382,
+        "no_active_incident": 0.06476651467326099
+      },
+      "wallMs": 682.0999999940395,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-23",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "storage_network_mtu_mismatch"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.16787241523026422,
+        "storage_network_connectivity_loss": 0.11919590113035725,
+        "host_volume_mapping_gap": 0.2953842416877786,
+        "powerstore_capacity_write_protect": 0.027644773907007734,
+        "powerstore_node_or_component_fault": 0.06965717881333135,
+        "other_or_multiple_causes": 0.1402248269717956,
+        "insufficient_evidence": 0.14103759839584873,
+        "no_active_incident": 0.03898306386361654
+      },
+      "wallMs": 835.0999999940395,
+      "status": "completed",
+      "correct": false
+    },
+    {
+      "id": "variant-24",
+      "selected": "host_volume_mapping_gap",
+      "expected": [
+        "host_volume_mapping_gap"
+      ],
+      "probabilities": {
+        "storage_network_mtu_mismatch": 0.049211935335305525,
+        "storage_network_connectivity_loss": 0.1227035698119432,
+        "host_volume_mapping_gap": 0.4259623791236411,
+        "powerstore_capacity_write_protect": 0.028419393151910367,
+        "powerstore_node_or_component_fault": 0.05976518345039115,
+        "other_or_multiple_causes": 0.13155912351259696,
+        "insufficient_evidence": 0.13605145335280236,
+        "no_active_incident": 0.04632696226140938
+      },
+      "wallMs": 699.2999999970198,
+      "status": "completed",
+      "correct": true
+    }
+  ]
+}

@@ -46,7 +46,7 @@ const tensorInfo=v=>({name:v.name,elementType:dtype[v.type?.tensorType?.elemType
 const assetResult={status:'passed',measuredAt:new Date().toISOString(),bundleCommit:lock.bundleCommit,checkpoint:lock.checkpoint,runtimeVersion:lock.runtimeVersion,runtimeCommit:lock.runtimeCommit,ortVersion:lock.ortVersion,fullWeightShardsDownloaded:false,inferenceRun:false,assets:assetAudits,graph:{initializerDtypes:counts(graph.initializer.map(v=>dtype[v.dataType]??String(v.dataType))),operators:counts(graph.node.map(n=>n.opType)),inputs:graph.input.map(tensorInfo),outputs:graph.output.map(tensorInfo),largestInitializerElements:Math.max(...graph.initializer.map(t=>t.dims.reduce((n,d)=>n*Number(d),1)))}};
 await writeFile(join(root,'results/graph-audit.json'),JSON.stringify(assetResult,null,2)+'\n');
 const tokenizer=new Tokenizer(tokenizerJson,tokenizerConfig);
-const server=await createServer({root,server:{middlewareMode:true},appType:'custom'});
+const server=await createServer({root,server:{middlewareMode:true,hmr:false},appType:'custom'});
 try{
  const {buildQuestionRequest}=await server.ssrLoadModule('/src/app/request.ts');
  const {parseEvidenceBundle}=await server.ssrLoadModule('/src/evidence/index.ts');

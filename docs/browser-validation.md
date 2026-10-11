@@ -1,5 +1,7 @@
 # Browser and engineering acceptance record
 
+**Current local record:** the project was imported to an independent Mac folder on 2026-10-11. Real q8 inference, offline new-evidence inference and browser lifecycle checks now have recorded outcomes. RCA semantics failed (8/34 accepted labels). See [public verification summary](verification.md) for current results. The sections below preserve the historical cloud run; their not-run entries describe that environment only.
+
 Recorded 2026-10-10. Status vocabulary: **passed** means the cited check actually ran; **failed** means an executed check did not meet its assertion; **not-run** means the required observation was unavailable or not attempted. `not_verified` is the numerical/model-report status when no trustworthy measurement exists. Static code or a unit test does not satisfy a hardware/browser requirement by itself.
 
 ## Environment and completed checks
@@ -7,14 +9,14 @@ Recorded 2026-10-10. Status vocabulary: **passed** means the cited check actuall
 - Cloud Linux implementation environment; no user computer was accessed
 - Chromium launch failed before page creation with `process_singleton_posix.cc socket() Operation not permitted`, both normally and through an approved escalation. `/dev/dri` was absent. There was **no** completed WebGPU adapter request. [Raw evidence](../results/cloud-gpu-probe.json)
 - TypeScript type checking: passed in the final subpath build
-- Final unit checks: **106 passed, 0 failed**. This includes 7 evaluation-accounting/variant-plumbing tests; none are real-model runs. [Machine-readable report](../results/unit-tests-final.json), [raw unit log](../results/unit-tests-final.log)
-- Production repository-subpath build: **passed**. [Raw build log](../results/build-subpath-final.log)
+- Final unit checks: **106 passed, 0 failed**. This includes 7 evaluation-accounting/variant-plumbing tests; none are real-model runs. The full raw unit reports are retained with the original offline delivery.
+- Production repository-subpath build: **passed**. The raw build log is retained with the original offline delivery.
 - Dependency audit: **0 findings** after pinning Vite 6.4.4 / Vitest 5.0.3. This is a package-audit result, not a complete security assessment. [Raw npm audit](../results/npm-audit.json)
 - Standalone browser test suite supplied, but **not-run** because Chromium cannot launch; DOM unit tests are not reported as browser execution
 - All 20 production requests (ten incident stages/cases × probable cause/next check) pass the actual pinned-tokenizer budget audit: largest state 939 tokens, largest state-plus-question branch 1,177. No truncation or inference. [Raw encoding measurements](../results/encoder-budget-results.json)
 - All **34 inputs / 68 questions**, including the 24 variants and both production question types, pass the same exact-encoder limits. Largest state/branch remain 939/1,177; no inference. [Full variant audit](../results/encoder-variant-budget-results.json)
 - Fixed metadata/tokenizer/graph bytes and q8 graph types were audited reproducibly. [Raw graph/asset audit](../results/graph-audit.json)
-- Development-only harness production compilation: passed; one Worker, matching ORT MJS/WASM, no model inference. Command: `node tests/model-validation/build-smoke.mjs`. [Raw harness build log](../results/harness-build-final.log)
+- Development-only harness production compilation: passed; one Worker, matching ORT MJS/WASM, no model inference. Command: `node tests/model-validation/build-smoke.mjs`. The raw harness build log is retained with the original offline delivery.
 - No real model predictions, cold/cached load measurements, GPU timings, peak memory results, reference comparisons or actual Pages URL exist from this environment
 
 ## Spec §12.2 acceptance rows
